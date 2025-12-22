@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esperanza 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. DESIGN SYSTEM (Lavender & White) --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fdfbfd 0%, #e6e6fa 50%, #dcd0ff 100%);
+            --glass-white: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-dark: #4a4a4a;
+            --text-purple: #6a4c93; /* Deep Lavender */
+            --accent: #9b72cf; /* Bright Lavender */
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Mobile Container */
+        .app-container {
+            width: 100%;
+            max-width: 500px; /* Phone width */
+            padding: 20px;
+            padding-bottom: 60px;
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero {
+            text-align: center;
+            margin-top: 40px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--text-purple);
+            margin: 0;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sub-title {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: -10px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Countdown Timer */
+        .countdown-box {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .timer-unit {
+            background: var(--glass-white);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 15px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            min-width: 70px;
+            box-shadow: var(--shadow);
+        }
+        .timer-val { font-size: 1.5rem; font-weight: 600; color: var(--text-purple); display: block; }
+        .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+
+        /* --- 3. GLASS CARDS --- */
+        .card {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0; /* Hidden initially for animation */
+        }
+        
+        /* Stagger animation delays */
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.4s; }
+        .card:nth-child(4) { animation-delay: 0.6s; }
+
+        .card h2 {
+            color: var(--text-purple);
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        ul { text-align: left; padding-left: 20px; color: #555; }
+        li { margin-bottom: 10px; line-height: 1.5; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #bbb1fa 0%, #9b72cf 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(155, 114, 207, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
+
+        /* --- 4. HIDDEN & MODAL --- */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        /* The Pixel Heart */
+        .easter-egg {
+            width: 24px;
+            opacity: 0.3;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .easter-egg:hover { opacity: 1; }
+
+        /* Secret Overlay */
+        #secret-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            width: 85%;
+            max-width: 400px;
+        }
+        input {
+            padding: 12px;
+            border: 2px solid #e6e6fa;
+            border-radius: 10px;
+            width: 100%;
+            margin: 15px 0;
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            font-size: 1.2rem;
+            outline: none;
+            text-transform: uppercase;
+        }
+        input:focus { border-color: var(--accent); }
+
+        /* Reveal Section */
+        #reveal-section { display: none; margin-top: 20px; }
+        .student-photo {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        audio { width: 100%; margin-top: 15px; border-radius: 30px; }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <div class="hero">
+        <h1 class="script-font">Esperanza</h1>
+        <div class="sub-title">Class of 2026 Freshers</div>
+        
+        <div class="countdown-box">
+            <div class="timer-unit"><span id="days" class="timer-val">00</span><span class="timer-label">Days</span></div>
+            <div class="timer-unit"><span id="hours" class="timer-val">00</span><span class="timer-label">Hrs</span></div>
+            <div class="timer-unit"><span id="mins" class="timer-val">00</span><span class="timer-label">Mins</span></div>
+            <div class="timer-unit"><span id="secs" class="timer-val">00</span><span class="timer-label">Secs</span></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>The Prescription</h2>
+        <p style="font-style: italic; opacity: 0.7;">Join us for a dose of dopamine.</p>
+        <ul>
+            <li><strong>[ 5:00 PM ]</strong> – The Grand Entry</li>
+            <li><strong>[ 6:30 PM ]</strong> – Cultural Performances</li>
+            <li><strong>[ 7:30 PM ]</strong> – Dinner is Served</li>
+            <li><strong>[ 8:30 PM ]</strong> – DJ & Dance Floor</li>
+        </ul>
+        <br>
+        <p><strong>📍 Venue:</strong> [ ENTER COLLEGE AUDITORIUM NAME ]</p>
+        <a href="[ PASTE GOOGLE MAP LINK ]" target="_blank" class="btn">Navigate</a>
+    </div>
+
+    <div class="card">
+        <h2>Side Effects</h2>
+        <p style="font-style: italic; opacity: 0.7;">Warning: May cause extreme fullness.</p>
+        <ul style="list-style-type: '🧁 '; padding-left: 20px;">
+            <li>[ APPETIZER NAME HERE ]</li>
+            <li>[ MAIN COURSE DISH 1 ]</li>
+            <li>[ MAIN COURSE DISH 2 ]</li>
+            <li>[ DESSERT NAME HERE ]</li>
+            <li>[ DRINKS / REFRESHMENT ]</li>
+        </ul>
+    </div>
+
+    <div class="card" style="border-top: 4px solid #1DB954;">
+        <h2 style="font-family: 'Outfit'; font-weight: bold; font-size: 1.5rem; margin-bottom: 5px;">Vibe Check</h2>
+        <p>Control the AUX cable. Add your songs now.</p>
+        <a href="[ PASTE SPOTIFY PLAYLIST LINK ]" target="_blank" class="btn" style="background: #1DB954; box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);">Open Spotify</a>
+    </div>
+
+    <div class="footer">
+        Made with 💜 by PharmD 2nd Year<br>
+        
+        <img src="https://img.icons8.com/dusk/64/pixel-heart.png" class="easter-egg" onclick="openSecret()">
+    </div>
+
+</div>
+
+<div id="secret-modal">
+    <div class="modal-content">
+        <h3 style="color: var(--text-purple); font-size: 1.5rem;">Secret Access</h3>
+        <p>Enter your unique code:</p>
+        <input type="text" id="passcode" placeholder="e.g. A29K">
+        
+        <button class="btn" onclick="checkCode()">Unlock</button>
+        <div style="margin-top: 15px; font-size: 0.8rem; cursor: pointer; color: #999;" onclick="closeSecret()">Close</div>
+
+        <div id="reveal-section">
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <img id="student-img" class="student-photo" src="" alt="Student">
+            <h2 id="student-name" style="font-family: 'Great Vibes'; margin: 10px 0; font-size: 2rem; color: var(--text-purple);"></h2>
+            <p id="student-msg" style="font-size: 0.9rem; color: #666;"></p>
+            <audio id="student-song" controls></audio>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- STEP 1: COUNTDOWN CONFIGURATION ---
+    const partyDate = new Date("Jan 3, 2026 17:00:00").getTime(); // Set Time Here
+
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const dist = partyDate - now;
+
+        document.getElementById("days").innerText = Math.floor(dist / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("mins").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById("secs").innerText = Math.floor((dist % (1000 * 60)) / 1000);
+    }, 1000);
+
+
+    // --- STEP 2: THE DATABASE (EDIT THIS LIST!) ---
+    // Format: "CODE": { name: "Name", img: "assets/photo.jpg", song: "assets/song.mp3", msg: "Your msg" }
+    const database = {
+        "A111": { 
+            name: "Rahul", 
+            img: "assets/rahul.jpg", 
+            song: "assets/rahul_song.mp3", 
+            msg: "Welcome to the PharmD chaos!" 
+        },
+        "B222": { 
+            name: "Priya", 
+            img: "assets/priya.jpg", 
+            song: "assets/priya_song.mp3", 
+            msg: "See you on the dance floor!" 
+        }
+        // ADD MORE STUDENTS HERE...
+    };
+
+
+    // --- STEP 3: MODAL FUNCTIONS ---
+    function openSecret() {
+        document.getElementById('secret-modal').style.display = 'flex';
+    }
+
+    function closeSecret() {
+        document.getElementById('secret-modal').style.display = 'none';
+        document.getElementById('reveal-section').style.display = 'none';
+        document.getElementById('student-song').pause(); // Stop music
+        document.getElementById('passcode').value = ''; // Clear text
+    }
+
+    function checkCode() {
+        const code = document.getElementById('passcode').value.trim().toUpperCase();
+        const data = database[code];
+        
+        if (data) {
+            // Success! Reveal info
+            document.getElementById('reveal-section').style.display = 'block';
+            document.getElementById('student-name').innerText = "Hello, " + data.name;
+            document.getElementById('student-msg').innerText = data.msg;
+            document.getElementById('student-img').src = data.img;
+            
+            const audio = document.getElementById('student-song');
+            audio.src = data.song;
+            audio.play();
+        } else {
+            // Failure
+            alert("❌ Invalid Code! Try again.");
+        }
+    }
+</script>
+
+</body>
+</html>
