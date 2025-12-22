@@ -28,7 +28,7 @@
             font-family: 'Outfit', sans-serif;
             background: var(--bg-gradient);
             color: var(--dark);
-            min-height: 100dvh; /* Android fix */
+            min-height: 100dvh; 
             overflow-x: hidden;
             display: flex;
             justify-content: center;
@@ -58,7 +58,7 @@
             width: 100%; 
             max-width: 480px;
             padding: 20px; 
-            padding-bottom: 120px;
+            padding-bottom: 40px; /* Adjusted padding */
             position: relative; 
             z-index: 2;
         }
@@ -162,15 +162,14 @@
         .btn:active { transform: scale(0.97); }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
 
-        /* --- FLOATING FOOTER BUTTON --- */
+        /* --- STATIC FOOTER BUTTON (AT THE BOTTOM OF PAGE) --- */
         .footer-space {
-            position: fixed; bottom: 20px; left: 0; width: 100%;
+            margin-top: 40px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            pointer-events: none; z-index: 99;
+            /* No fixed positioning, it sits at the bottom */
         }
 
         .secret-btn {
-            pointer-events: auto;
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -287,19 +286,19 @@
         </ul>
     </div>
 
-    <div class="card" style="border-top: 3px solid #1DB954; margin-bottom: 80px;">
+    <div class="card" style="border-top: 3px solid #1DB954;">
         <h3 class="section-title" style="color: #1DB954; margin-bottom: 5px;"><i class="fab fa-spotify"></i> Vibe Check</h3>
         <p style="font-size: 0.85rem; margin-bottom: 10px;">Control the AUX. Add your songs.</p>
         <a href="YOUR_SPOTIFY_LINK_HERE" target="_blank" class="btn" style="background: #1DB954; box-shadow: 0 4px 10px rgba(29, 185, 84, 0.3);">Open Playlist</a>
     </div>
 
-</div>
-
-<div class="footer-space">
-    <div class="secret-btn" onclick="openSecret()">
-        <img src="assets/images/heart.png" alt="Love">
+    <div class="footer-space">
+        <div class="secret-btn" onclick="openSecret()">
+            <img src="assets/images/heart.png" alt="Love">
+        </div>
+        <div style="font-size: 0.7rem; color: #aaa; margin-top: 8px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Made with 💜 by PharmD 2nd Year</div>
     </div>
-    <div style="font-size: 0.7rem; color: #aaa; margin-top: 8px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Made with 💜 by PharmD 2nd Year</div>
+
 </div>
 
 <div id="secret-modal">
@@ -325,7 +324,6 @@
     // --- 1. COUNTDOWN (Calculates IMMEDIATELY) ---
     const partyDate = new Date("Jan 3, 2026 10:00:00").getTime();
     
-    // Define the update function
     function updateTimer() {
         const now = new Date().getTime();
         const dist = partyDate - now;
@@ -336,13 +334,8 @@
         document.getElementById("m").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
         document.getElementById("s").innerText = Math.floor((dist % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }
-
-    // Call it RIGHT NOW (fixes the 00 00 issue)
     updateTimer();
-    
-    // Then call it every second
     setInterval(updateTimer, 1000);
-
 
     // --- 2. PARTY MODE ANIMATION ---
     function partyMode() {
