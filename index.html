@@ -159,15 +159,44 @@
         .btn:active { transform: scale(0.97); }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
 
-        /* --- 4. INVISIBLE EASTER EGG (FOOTER) --- */
-        .footer-space { height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .secret-btn {
-            background: transparent; border: none; cursor: pointer;
-            padding: 10px; opacity: 0; /* Invisible initially */
-            transition: opacity 0.5s;
+        /* --- 4. FLOATING HEART BUTTON (FOOTER) --- */
+        .footer-space { 
+            height: 100px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
         }
-        .secret-btn:hover { opacity: 1; } /* Reveal on hover */
-        .secret-btn img { width: 35px; animation: pulse 2s infinite; }
+
+        .secret-btn {
+            background: rgba(255, 255, 255, 0.25); /* Subtle glass bubble */
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%; /* Makes it a circle */
+            cursor: pointer;
+            padding: 12px;
+            opacity: 1; /* ALWAYS VISIBLE NOW */
+            box-shadow: 0 5px 15px rgba(155, 114, 207, 0.2);
+            animation: floatBtn 3s ease-in-out infinite; /* Makes it float up and down */
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .secret-btn:hover { 
+            transform: scale(1.1); 
+            background: rgba(255, 255, 255, 0.6); /* Brighter on hover */
+        } 
+        
+        .secret-btn img { 
+            width: 35px; 
+            display: block; 
+        }
+
+        /* Floating Animation */
+        @keyframes floatBtn {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); } /* Moves up */
+            100% { transform: translateY(0px); }
+        }
 
         /* --- 5. MODAL & EFFECTS --- */
         #secret-modal {
