@@ -2,41 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esperanza 2026 | The Beginning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Esperanza 2026</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. THE PREMIUM LAVENDER THEME --- */
+        /* --- 1. THE STABLE LAVENDER THEME --- */
         :root {
             --bg-gradient: linear-gradient(135deg, #fdfbfd 0%, #f3eafa 50%, #e8dff5 100%);
             --glass: rgba(255, 255, 255, 0.65);
-            --glass-strong: rgba(255, 255, 255, 0.85);
-            --border: rgba(255, 255, 255, 0.9);
-            --primary: #9b72cf; /* Lavender */
-            --accent: #ff6b6b; /* For Flashmob */
+            --glass-strong: rgba(255, 255, 255, 0.9);
+            --border: rgba(255, 255, 255, 0.8);
+            --primary: #9b72cf; 
+            --accent: #ff6b6b;
             --dark: #4a4a4a;
             --shadow: 0 10px 40px rgba(155, 114, 207, 0.15);
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0; padding: 0;
             font-family: 'Outfit', sans-serif;
             background: var(--bg-gradient);
             color: var(--dark);
-            min-height: 100vh;
+            min-height: 100dvh; /* Android fix */
             overflow-x: hidden;
             display: flex;
             justify-content: center;
+            overscroll-behavior: none; 
         }
 
-        /* Animated Background */
+        /* Hardware Accelerated Background (No shaking) */
         .blob {
-            position: absolute; filter: blur(60px); z-index: -1; opacity: 0.5;
-            animation: moveBlob 15s infinite alternate;
+            position: fixed;
+            filter: blur(60px); 
+            z-index: -1; 
+            opacity: 0.5;
+            will-change: transform;
+            transform: translateZ(0);
+            animation: moveBlob 15s infinite alternate ease-in-out;
         }
         .blob-1 { top: -10%; left: -10%; width: 300px; height: 300px; background: #e0c3fc; border-radius: 50%; }
         .blob-2 { bottom: 20%; right: -5%; width: 250px; height: 250px; background: #cbb4d4; border-radius: 40% 60% 70% 30%; animation-delay: -5s; }
@@ -44,55 +51,51 @@
 
         @keyframes moveBlob {
             0% { transform: translate(0, 0); }
-            100% { transform: translate(30px, 40px); }
+            100% { transform: translate(20px, 30px); }
         }
 
-        /* Container */
         .app-container {
-            width: 100%; max-width: 480px;
-            padding: 20px; padding-bottom: 100px;
-            position: relative; z-index: 2;
+            width: 100%; 
+            max-width: 480px;
+            padding: 20px; 
+            padding-bottom: 120px;
+            position: relative; 
+            z-index: 2;
         }
 
-        /* --- 2. HERO & EASTER EGG TRIGGERS --- */
+        /* --- HERO SECTION --- */
         .hero { 
-            text-align: center; margin-top: 30px; margin-bottom: 30px; 
-            position: relative; /* Needed for hint positioning */
+            text-align: center; margin-top: 20px; margin-bottom: 25px; position: relative;
         }
         
-        /* THE MAIN TITLE TRIGGER */
         .title-trigger {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem; color: var(--primary);
-            margin: 0; line-height: 1;
+            font-size: clamp(3.5rem, 12vw, 5rem); 
+            color: var(--primary);
+            margin: 0; line-height: 1.1;
             text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
             cursor: pointer; transition: transform 0.2s; user-select: none;
             position: relative; z-index: 2;
         }
-        .title-trigger:active { transform: scale(0.9); }
+        .title-trigger:active { transform: scale(0.95); }
 
-        /* THE NEW "GHOST HINT" BUBBLE */
         .ghost-hint {
-            position: absolute;
-            top: -20px; right: 10%; /* Position near title */
-            background: rgba(155, 114, 207, 0.15); /* Sheer lavender */
+            position: absolute; top: -15px; right: 5%;
+            background: rgba(155, 114, 207, 0.15);
             backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.6);
-            padding: 8px 16px; border-radius: 30px;
-            font-size: 0.85rem; color: var(--primary); font-weight: 600;
-            pointer-events: none; /* Clicks go through it */
-            opacity: 0; /* Start hidden */
-            /* Animation: Wait 3s, appear, float up, disappear forever */
+            padding: 6px 14px; border-radius: 30px;
+            font-size: 0.8rem; color: var(--primary); font-weight: 600;
+            pointer-events: none; opacity: 0;
             animation: floatHint 6s ease-in-out forwards;
-            animation-delay: 3s;
-            z-index: 1;
+            animation-delay: 2s;
+            z-index: 1; white-space: nowrap;
         }
 
         @keyframes floatHint {
-            0% { opacity: 0; transform: translateY(15px) scale(0.9); }
-            20% { opacity: 1; transform: translateY(0) scale(1); }
-            70% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-20px) scale(0.9); visibility: hidden; }
+            0% { opacity: 0; transform: translateY(10px); }
+            20%, 80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-15px); visibility: hidden; }
         }
         
         .hero p {
@@ -100,27 +103,28 @@
             color: #888; margin-top: 5px; font-weight: 700;
         }
 
-        /* Countdown */
-        .countdown { display: flex; justify-content: center; gap: 10px; margin-top: 25px; }
+        /* --- COUNTDOWN --- */
+        .countdown { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
         .time-box {
             background: var(--glass-strong);
-            padding: 10px; border-radius: 12px; min-width: 60px;
+            padding: 8px; border-radius: 12px; 
+            min-width: 55px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #fff;
         }
-        .t-val { font-size: 1.3rem; font-weight: 800; color: var(--primary); display: block; }
+        .t-val { font-size: 1.2rem; font-weight: 800; color: var(--primary); display: block; }
         .t-label { font-size: 0.6rem; color: #999; text-transform: uppercase; }
 
-        /* --- 3. CARDS --- */
+        /* --- CARDS --- */
         .card {
             background: var(--glass);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-radius: 20px; border: 1px solid var(--border);
-            padding: 25px; margin-bottom: 20px;
+            padding: 22px; margin-bottom: 18px;
             box-shadow: var(--shadow);
-            animation: slideUp 0.8s ease forwards;
+            animation: slideUp 0.6s ease-out forwards;
+            transform: translateZ(0);
         }
 
-        /* Flashmob Special Card */
         .card.flashmob {
             border-left: 5px solid var(--accent);
             background: linear-gradient(to right, rgba(255, 107, 107, 0.05), rgba(255,255,255,0.8));
@@ -135,98 +139,85 @@
         }
         .flashmob .section-title { color: var(--accent); }
 
-        /* Timeline Items */
-        .timeline-item { display: flex; gap: 15px; margin-bottom: 18px; position: relative; }
+        .timeline-item { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
         .time-badge {
             background: var(--primary); color: white;
-            font-size: 0.75rem; padding: 5px 10px; border-radius: 15px;
-            height: fit-content; white-space: nowrap; font-weight: 600;
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 12px;
+            min-width: 75px; text-align: center; font-weight: 600;
+            flex-shrink: 0;
         }
         .flashmob .time-badge { background: var(--accent); }
         
-        .event-info strong { display: block; font-size: 1rem; margin-bottom: 2px; }
+        .event-info strong { display: block; font-size: 1rem; margin-bottom: 2px; line-height: 1.2; }
         .event-info span { font-size: 0.85rem; color: #666; }
 
-        /* Buttons */
         .btn {
             display: block; width: 100%; text-align: center;
             background: linear-gradient(135deg, #b08add 0%, #9b72cf 100%);
-            color: white; padding: 12px; border-radius: 15px;
-            text-decoration: none; font-weight: 600; margin-top: 10px;
+            color: white; padding: 14px; border-radius: 15px;
+            text-decoration: none; font-weight: 600; margin-top: 15px;
             box-shadow: 0 5px 15px rgba(155, 114, 207, 0.3);
             transition: 0.2s; border: none; font-size: 0.95rem; cursor: pointer;
         }
         .btn:active { transform: scale(0.97); }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
 
-        /* --- 4. FLOATING HEART BUTTON (FOOTER) --- */
-        .footer-space { 
-            height: 100px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
+        /* --- FLOATING FOOTER BUTTON --- */
+        .footer-space {
+            position: fixed; bottom: 20px; left: 0; width: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            pointer-events: none; z-index: 99;
         }
 
         .secret-btn {
-            background: rgba(255, 255, 255, 0.25); /* Subtle glass bubble */
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 50%; /* Makes it a circle */
-            cursor: pointer;
-            padding: 12px;
-            opacity: 1; /* ALWAYS VISIBLE NOW */
-            box-shadow: 0 5px 15px rgba(155, 114, 207, 0.2);
-            animation: floatBtn 3s ease-in-out infinite; /* Makes it float up and down */
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            cursor: pointer; padding: 12px;
+            box-shadow: 0 5px 20px rgba(155, 114, 207, 0.25);
+            animation: floatBtn 3s ease-in-out infinite;
+            will-change: transform;
             transition: transform 0.2s, background 0.3s;
         }
 
-        .secret-btn:hover { 
-            transform: scale(1.1); 
-            background: rgba(255, 255, 255, 0.6); /* Brighter on hover */
-        } 
-        
-        .secret-btn img { 
-            width: 35px; 
-            display: block; 
-        }
+        .secret-btn:active { transform: scale(0.9); }
+        .secret-btn img { width: 32px; display: block; }
 
-        /* Floating Animation */
         @keyframes floatBtn {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); } /* Moves up */
-            100% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
         }
 
-        /* --- 5. MODAL & EFFECTS --- */
+        /* --- MODAL --- */
         #secret-modal {
             display: none; position: fixed; inset: 0;
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+            background: rgba(255,255,255,0.98); 
             z-index: 1000; justify-content: center; align-items: center;
         }
         .modal-box {
-            background: white; width: 85%; max-width: 350px;
-            padding: 30px; border-radius: 25px; text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            background: white; width: 90%; max-width: 360px;
+            padding: 30px 20px; border-radius: 25px; text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         .code-input {
-            width: 100%; padding: 12px; text-align: center; font-size: 1.2rem;
+            width: 100%; padding: 14px; text-align: center; font-size: 1.3rem;
             border: 2px solid #eee; border-radius: 12px; margin: 15px 0;
             outline: none; text-transform: uppercase; letter-spacing: 2px;
+            font-family: 'Outfit', sans-serif; -webkit-appearance: none;
         }
         .code-input:focus { border-color: var(--primary); }
         
-        /* Message Style - Handles new lines */
-        #stu-msg {
-            white-space: pre-line;
+        #stu-msg { white-space: pre-line; line-height: 1.5; color: #555; font-size: 0.95rem; }
+
+        /* --- ANIMATIONS --- */
+        .emoji { 
+            position: fixed; top: -50px; font-size: 2rem; 
+            animation: fall linear forwards; z-index: 9999; pointer-events: none;
         }
-
-        /* Confetti Effect */
-        .emoji { position: fixed; top: -50px; font-size: 2rem; animation: fall 3s linear forwards; z-index: 9999; pointer-events: none;}
-
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     </style>
 </head>
@@ -245,20 +236,20 @@
         <p>Class of 2026 Freshers</p>
         
         <div class="countdown">
-            <div class="time-box"><span id="d" class="t-val">00</span><span class="t-label">Days</span></div>
-            <div class="time-box"><span id="h" class="t-val">00</span><span class="t-label">Hrs</span></div>
-            <div class="time-box"><span id="m" class="t-val">00</span><span class="t-label">Mins</span></div>
-            <div class="time-box"><span id="s" class="t-val">00</span><span class="t-label">Secs</span></div>
+            <div class="time-box"><span id="d" class="t-val"></span><span class="t-label">Days</span></div>
+            <div class="time-box"><span id="h" class="t-val"></span><span class="t-label">Hrs</span></div>
+            <div class="time-box"><span id="m" class="t-val"></span><span class="t-label">Mins</span></div>
+            <div class="time-box"><span id="s" class="t-val"></span><span class="t-label">Secs</span></div>
         </div>
     </div>
 
     <div class="card flashmob">
         <h3 class="section-title"><i class="fas fa-bolt"></i> The Prequel (Flashmob)</h3>
-        <p style="font-size: 0.9rem; margin-bottom: 15px;">Before the party begins, we make our mark.</p>
+        <p style="font-size: 0.9rem; margin-bottom: 15px; line-height: 1.4;">Before the party begins, we make our mark.</p>
         
         <div class="timeline-item">
             <div class="time-badge">Jan 2</div>
-            <div class="event-info"><strong>Flashmob Performance</strong><span>Gathering at the College Entrance</span></div>
+            <div class="event-info"><strong>Flashmob Performance</strong><span>Gathering at College Ground</span></div>
         </div>
     </div>
 
@@ -296,45 +287,46 @@
         </ul>
     </div>
 
-    <div class="card" style="border-top: 3px solid #1DB954;">
+    <div class="card" style="border-top: 3px solid #1DB954; margin-bottom: 80px;">
         <h3 class="section-title" style="color: #1DB954; margin-bottom: 5px;"><i class="fab fa-spotify"></i> Vibe Check</h3>
         <p style="font-size: 0.85rem; margin-bottom: 10px;">Control the AUX. Add your songs.</p>
         <a href="YOUR_SPOTIFY_LINK_HERE" target="_blank" class="btn" style="background: #1DB954; box-shadow: 0 4px 10px rgba(29, 185, 84, 0.3);">Open Playlist</a>
     </div>
 
-    <div class="footer-space">
-        <button class="secret-btn" onclick="openSecret()">
-            <img src="assets/images/heart.png" alt="Love">
-        </button>
-        <div style="font-size: 0.7rem; color: #aaa; margin-top: 5px;">Made with 💜 by PharmD 2nd Year</div>
-    </div>
+</div>
 
+<div class="footer-space">
+    <div class="secret-btn" onclick="openSecret()">
+        <img src="assets/images/heart.png" alt="Love">
+    </div>
+    <div style="font-size: 0.7rem; color: #aaa; margin-top: 8px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Made with 💜 by PharmD 2nd Year</div>
 </div>
 
 <div id="secret-modal">
     <div class="modal-box">
-        <h2 style="font-family: 'Great Vibes'; color: var(--primary); font-size: 2.5rem; margin:0;">Secret access</h2>
+        <h2 style="font-family: 'Great Vibes'; color: var(--primary); font-size: 2.5rem; margin:0;">Secret Access</h2>
         <p style="color: #999; font-size: 0.85rem;">Enter your code</p>
         
-        <input type="text" id="passcode" class="code-input" placeholder="A29K">
+        <input type="text" id="passcode" class="code-input" placeholder="A29K" autocomplete="off">
         
         <button class="btn" onclick="checkCode()">Unlock</button>
-        <div style="margin-top: 15px; font-size: 0.8rem; color: #aaa; cursor: pointer;" onclick="closeSecret()">Close</div>
+        <div style="margin-top: 15px; font-size: 0.8rem; color: #aaa; cursor: pointer; padding: 10px;" onclick="closeSecret()">Close</div>
 
         <div id="reveal-area" style="display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
             <img id="stu-img" src="" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
             <h3 id="stu-name" style="color: var(--primary); margin: 10px 0;"></h3>
-            <p id="stu-msg" style="font-size: 0.9rem; color: #555; font-style: italic;"></p>
-            <audio id="stu-song" controls style="width: 100%; margin-top: 10px; border-radius: 20px;"></audio>
+            <p id="stu-msg"></p>
+            <audio id="stu-song" controls style="width: 100%; margin-top: 15px; border-radius: 20px;"></audio>
         </div>
     </div>
 </div>
 
 <script>
-    // --- 1. COUNTDOWN (Set to 10:00 AM) ---
+    // --- 1. COUNTDOWN (Calculates IMMEDIATELY) ---
     const partyDate = new Date("Jan 3, 2026 10:00:00").getTime();
     
-    setInterval(() => {
+    // Define the update function
+    function updateTimer() {
         const now = new Date().getTime();
         const dist = partyDate - now;
         if(dist < 0) return;
@@ -343,62 +335,48 @@
         document.getElementById("h").innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
         document.getElementById("m").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
         document.getElementById("s").innerText = Math.floor((dist % (1000 * 60)) / 1000).toString().padStart(2, '0');
-    }, 1000);
+    }
 
-    // --- 2. EASTER EGG: AESTHETIC PARTY MODE ---
+    // Call it RIGHT NOW (fixes the 00 00 issue)
+    updateTimer();
+    
+    // Then call it every second
+    setInterval(updateTimer, 1000);
+
+
+    // --- 2. PARTY MODE ANIMATION ---
     function partyMode() {
-        // THE NEW AESTHETIC EMOJI LIST
         const emojis = ['💜', '🤍', '💖', '💗', '💊', '✨', '🦋', '🌸', '💃', '🕺', '🪩', '🌙', '💫', '🔮', '🧿'];
-        
-        for (let i = 0; i < 25; i++) { // Increased count slightly
+        for (let i = 0; i < 25; i++) {
             const el = document.createElement('div');
             el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             el.className = 'emoji';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem'; // Varied sizes
-            el.style.animationDuration = (Math.random() * 2 + 2.5) + 's'; // Slower, floatier fall
+            el.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+            el.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
             document.body.appendChild(el);
-            
             setTimeout(() => el.remove(), 4500);
         }
     }
 
-    // --- 3. DATABASE (Students) ---
+    // --- 3. DATABASE ---
     const database = {
-        "PD425": { 
+        "PD001": { 
             name: "Rahul", 
             img: "assets/photos/rahul.jpg", 
             song: "assets/music/rahul.mp3", 
             msg: "We checked the guest list twice just to be sure... 📋\n\nAnd yep, you were at the top of the 'Must Invite' section. 🌟" 
         },
-        "PD474": { 
-            name: "Rahul", 
-            img: "assets/photos/rahul.jpg", 
-            song: "assets/music/rahul.mp3", 
+        "PD002": { 
+            name: "Priya", 
+            img: "assets/photos/priya.jpg", 
+            song: "assets/music/priya.mp3", 
             msg: "You’re the missing element we were looking for. 🧩\n\nThe Periodic Table of 2026 is finally complete. 🧪" 
-        },
-        "PD003": { 
-            name: "Rahul", 
-            img: "assets/photos/rahul.jpg", 
-            song: "assets/music/rahul.mp3", 
-            msg: "The universe really said: 'Let’s add some magic to Batch 2026.' 🪄\n\nAnd then sent you here. 🌌" 
-        },
-        "PD004": { 
-            name: "Rahul", 
-            img: "assets/photos/rahul.jpg", 
-            song: "assets/music/rahul.mp3", 
-            msg: "A little bit of chaos, a whole lot of magic. 🪄\n\nThat’s exactly what you are. 🔮" 
-        },
-        "PD005": { 
-            name: "Rahul", 
-            img: "assets/photos/rahul.jpg", 
-            song: "assets/music/rahul.mp3", 
-            msg: "Assignment: Slay the Day. ⚔️\n\nGrade: A+ (Outstanding). 💯" 
         }
-        // ADD MORE HERE
+        // ADD MORE STUDENTS HERE...
     };
 
-    // --- 4. SECRET LOGIC ---
+    // --- 4. MODAL LOGIC ---
     function openSecret() {
         document.getElementById('secret-modal').style.display = 'flex';
     }
@@ -422,7 +400,7 @@
             audio.play().catch(e => console.log("Click play manually"));
         } else {
             const input = document.getElementById('passcode');
-            input.style.borderColor = 'red';
+            input.style.borderColor = '#ff6b6b';
             setTimeout(() => input.style.borderColor = '#eee', 500);
         }
     }
