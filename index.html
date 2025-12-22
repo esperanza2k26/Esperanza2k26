@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esperanza 2026 | The Beginning</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- 1. THE PREMIUM LAVENDER THEME --- */
@@ -54,20 +54,46 @@
             position: relative; z-index: 2;
         }
 
-        /* --- 2. HERO & EASTER EGG TRIGGER --- */
-        .hero { text-align: center; margin-top: 30px; margin-bottom: 30px; }
+        /* --- 2. HERO & EASTER EGG TRIGGERS --- */
+        .hero { 
+            text-align: center; margin-top: 30px; margin-bottom: 30px; 
+            position: relative; /* Needed for hint positioning */
+        }
         
-        /* CLICK ME EASTER EGG */
+        /* THE MAIN TITLE TRIGGER */
         .title-trigger {
             font-family: 'Great Vibes', cursive;
             font-size: 4.5rem; color: var(--primary);
             margin: 0; line-height: 1;
             text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: transform 0.2s;
-            user-select: none;
+            cursor: pointer; transition: transform 0.2s; user-select: none;
+            position: relative; z-index: 2;
         }
         .title-trigger:active { transform: scale(0.9); }
+
+        /* THE NEW "GHOST HINT" BUBBLE */
+        .ghost-hint {
+            position: absolute;
+            top: -20px; right: 10%; /* Position near title */
+            background: rgba(155, 114, 207, 0.15); /* Sheer lavender */
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.6);
+            padding: 8px 16px; border-radius: 30px;
+            font-size: 0.85rem; color: var(--primary); font-weight: 600;
+            pointer-events: none; /* Clicks go through it */
+            opacity: 0; /* Start hidden */
+            /* Animation: Wait 3s, appear, float up, disappear forever */
+            animation: floatHint 6s ease-in-out forwards;
+            animation-delay: 3s;
+            z-index: 1;
+        }
+
+        @keyframes floatHint {
+            0% { opacity: 0; transform: translateY(15px) scale(0.9); }
+            20% { opacity: 1; transform: translateY(0) scale(1); }
+            70% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-20px) scale(0.9); visibility: hidden; }
+        }
         
         .hero p {
             text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
@@ -133,7 +159,7 @@
         .btn:active { transform: scale(0.97); }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
 
-        /* --- 4. INVISIBLE EASTER EGG --- */
+        /* --- 4. INVISIBLE EASTER EGG (FOOTER) --- */
         .footer-space { height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .secret-btn {
             background: transparent; border: none; cursor: pointer;
@@ -162,7 +188,7 @@
         .code-input:focus { border-color: var(--primary); }
         
         /* Confetti Effect */
-        .emoji { position: fixed; top: -50px; font-size: 2rem; animation: fall 3s linear forwards; z-index: 999; }
+        .emoji { position: fixed; top: -50px; font-size: 2rem; animation: fall 3s linear forwards; z-index: 9999; pointer-events: none;}
 
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } }
@@ -179,6 +205,8 @@
 <div class="app-container">
 
     <div class="hero">
+        <div class="ghost-hint">👉 <em>tap for magic</em> ✨</div>
+
         <h1 class="title-trigger" onclick="partyMode()">Esperanza</h1>
         <p>Class of 2026 Freshers</p>
         
@@ -195,11 +223,8 @@
         <p style="font-size: 0.9rem; margin-bottom: 15px;">Before the party begins, we make our mark.</p>
         
         <div class="timeline-item">
-            <div class="time-badge">Jan 2</div> <div class="event-info"><strong>Flashmob Performance</strong><span>Gathering at College Ground</span></div>
-        </div>
-        
-        <div style="font-size: 0.8rem; opacity: 0.7; font-style: italic;">
-            *Don't miss the teaser!
+            <div class="time-badge">Jan 2</div>
+            <div class="event-info"><strong>Flashmob Performance</strong><span>Gathering at College Ground</span></div>
         </div>
     </div>
 
@@ -286,19 +311,21 @@
         document.getElementById("s").innerText = Math.floor((dist % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }, 1000);
 
-    // --- 2. EASTER EGG: PARTY MODE (Click Title) ---
+    // --- 2. EASTER EGG: AESTHETIC PARTY MODE ---
     function partyMode() {
-        const emojis = ['💜', '💊', '✨', '🎉', '💃', '🥂', '🔮'];
-        for (let i = 0; i < 20; i++) {
+        // THE NEW AESTHETIC EMOJI LIST
+        const emojis = ['💜', '🤍', '💖', '💗', '💊', '✨', '🦋', '🌸', '💃', '🕺', '🪩', '🌙', '💫', '🔮', '🧿'];
+        
+        for (let i = 0; i < 25; i++) { // Increased count slightly
             const el = document.createElement('div');
             el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
             el.className = 'emoji';
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 2 + 2) + 's'; // Random speed
+            el.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem'; // Varied sizes
+            el.style.animationDuration = (Math.random() * 2 + 2.5) + 's'; // Slower, floatier fall
             document.body.appendChild(el);
             
-            // Cleanup
-            setTimeout(() => el.remove(), 3000);
+            setTimeout(() => el.remove(), 4500);
         }
     }
 
@@ -310,12 +337,6 @@
             song: "assets/music/rahul.mp3", 
             msg: "Welcome to the PharmD Chaos!" 
         },
-        "B222": { 
-            name: "Priya", 
-            img: "assets/photos/priya.jpg", 
-            song: "assets/music/priya.mp3", 
-            msg: "Study hard, Party harder!" 
-        }
         // ADD MORE HERE
     };
 
@@ -342,7 +363,6 @@
             audio.src = data.song;
             audio.play().catch(e => console.log("Click play manually"));
         } else {
-            // Shake effect
             const input = document.getElementById('passcode');
             input.style.borderColor = 'red';
             setTimeout(() => input.style.borderColor = '#eee', 500);
