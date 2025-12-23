@@ -188,7 +188,12 @@
         }
 
         /* --- PRINCIPAL MODAL --- */
-        .principal-box { border: 2px solid #f3e5ab; background: linear-gradient(to bottom, #fff, #fffbf0); }
+        .principal-box { 
+    border: 2px solid #f3e5ab; 
+    background: linear-gradient(to bottom, #fff, #fffbf0);
+    overflow: visible !important; /* Stops cutting the badge */
+    margin-top: 20px; /* Moves box down so badge fits */
+}
         .gold-badge {
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
             background: var(--gold); color: white;
@@ -228,30 +233,40 @@
             animation: pulse 2s infinite; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); z-index: 2;
         }
 
+        /* --- UPDATED SENIOR CARD --- */
         .senior-card {
             background: #fff; border-radius: 18px; padding: 15px; margin-top: 20px;
-            display: flex; align-items: center; gap: 15px; text-align: left;
+            display: flex; align-items: flex-start; /* Changed for longer text */
+            gap: 15px; text-align: left;
             border: 1px solid #e0c3fc; box-shadow: 0 5px 15px rgba(155, 114, 207, 0.1);
             position: relative; overflow: hidden;
         }
         .senior-card::before {
             content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--primary);
         }
-        .senior-img-wrapper { position: relative; width: 75px; height: 75px; flex-shrink: 0; }
+        .senior-img-wrapper { position: relative; width: 90px; height: 90px; flex-shrink: 0; /* BIGGER IMAGE */ }
         .senior-img {
-            width: 100%; height: 100%; border-radius: 18px; object-fit: cover;
+            width: 100%; height: 100%; border-radius: 20px; object-fit: cover;
             border: 2px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         .senior-badge {
             position: absolute; bottom: -5px; right: -5px; background: var(--primary); color: white;
-            font-size: 0.55rem; padding: 2px 6px; border-radius: 8px; font-weight: bold; border: 1px solid white;
+            font-size: 0.6rem; padding: 3px 7px; border-radius: 8px; font-weight: bold; border: 1px solid white;
         }
         .senior-info { flex-grow: 1; }
         .twin-label {
             font-size: 0.65rem; color: #999; text-transform: uppercase; 
             font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 2px;
         }
-        .senior-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0; line-height: 1.2; }
+        .senior-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0; line-height: 1.2; margin-bottom: 5px; }
+        
+        /* New Senior Message Style */
+        .senior-message {
+            font-size: 0.85rem; color: #666; font-style: italic; line-height: 1.4;
+            background: #fcfaff; padding: 8px; border-radius: 8px; margin-bottom: 5px;
+            border-left: 2px solid #e0c3fc;
+        }
+        
         .connect-btn {
             font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 4px; display: inline-block;
             background: rgba(155, 114, 207, 0.1); padding: 4px 10px; border-radius: 20px;
@@ -314,7 +329,7 @@
         </div>
         
         <button onclick="openPrincipal()" class="btn btn-outline" style="border-color: #d4af37; color: #b4941f;">
-            <i class="fas fa-user-graduate"></i> &nbsp; Meet The Authority
+            <i class="fas fa-user-graduate"></i>   Meet The Authority
         </button>
     </div>
 
@@ -389,6 +404,7 @@
                 <div class="senior-info">
                     <span class="twin-label">Your Senior Twin</span>
                     <h4 id="senior-name" class="senior-name"></h4>
+                    <p id="senior-msg" class="senior-message"></p>
                     <span class="connect-btn">Let's Connect 💬</span>
                 </div>
             </div>
@@ -397,7 +413,18 @@
         </div>
     </div>
 </div>
-
+    
+<div id="advice-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div style="font-size: 3rem; margin-bottom: 10px;">💡</div>
+        <h3 style="color: var(--primary); margin: 0; font-family: 'Great Vibes'; font-size: 2rem;">Senior Wisdom</h3>
+        
+        <p id="advice-text" style="font-size: 1.1rem; color: #555; font-style: italic; margin: 20px 0; line-height: 1.5;"></p>
+        
+        <button class="btn" onclick="closeAdvice()">Got it!</button>
+    </div>
+</div>
+    
 <script>
     // --- 1. COUNTDOWN ---
     const partyDate = new Date("Jan 3, 2026 10:00:00").getTime();
@@ -428,46 +455,45 @@
         }
     }
 
-    // --- 3. DATABASE (Edit Senior Names!) ---
+    // --- 3. DATABASE (Update Senior Names & Messages!) ---
     const database = {
-        "PD001": { name: "Jayani", img: "assets/photos/2001.jpg", song: "assets/2001.mp3", msg: "Welcome to the family! 🌟", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD003": { name: "Rajesh", img: "assets/photos/2003.jpg", song: "assets/2003.mp3", msg: "Future Dr. in the house! 💊", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD004": { name: "Chandrashekhar Roy", img: "assets/photos/2004.jpg", song: "assets/2004.mp3", msg: "Welcome to the chaos! ⚡", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD005": { name: "Charanya", img: "assets/photos/2005.jpg", song: "assets/2005.mp3", msg: "Shine bright tonight! ✨", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD006": { name: "Mahitha", img: "assets/photos/2006.jpg", song: "assets/2006.mp3", msg: "Official Vibe Check: Passed! ✅", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD007": { name: "Dwarakanath", img: "assets/photos/2007.jpg", song: "assets/2007.mp3", msg: "Let's make memories! 📸", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD008": { name: "Keerthi", img: "assets/photos/2008.jpg", song: "assets/2008.mp3", msg: "Welcome to the squad! 💜", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD009": { name: "Gayatri", img: "assets/photos/2009.jpg", song: "assets/2009.mp3", msg: "Sending good vibes! 🌸", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD010": { name: "Jatin", img: "assets/photos/2010.jpg", song: "assets/2010.mp3", msg: "Party mode: ON! 🚀", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD011": { name: "Vaishnavi", img: "assets/photos/2011.jpg", song: "assets/2011.mp3", msg: "So glad you're here! 💖", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD012": { name: "Akshaya", img: "assets/photos/2012.jpg", song: "assets/2012.mp3", msg: "Your journey starts now! 🗺️", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD013": { name: "Sai Poojitha", img: "assets/photos/2013.jpg", song: "assets/2013.mp3", msg: "Welcome to Esperanza! 🌌", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD014": { name: "Keerthana", img: "assets/photos/2014.jpg", song: "assets/2014.mp3", msg: "Keep smiling! 😊", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD015": { name: "Siri Chandana", img: "assets/photos/2015.jpg", song: "assets/2015.mp3", msg: "New favorite junior! 🌟", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD016": { name: "Harshini Prasanna", img: "assets/photos/2016.jpg", song: "assets/2016.mp3", msg: "Welcome home! 🏠", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD017": { name: "Fatima", img: "assets/photos/2017.jpg", song: "assets/2017.mp3", msg: "You radiate good energy! ⚡", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD018": { name: "Maseera Irram", img: "assets/photos/2018.jpg", song: "assets/2018.mp3", msg: "Enjoy the party! 🥂", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD019": { name: "Pallavi", img: "assets/photos/2019.jpg", song: "assets/2019.mp3", msg: "Welcome to PharmD! 💊", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD020": { name: "Akhila", img: "assets/photos/2020.jpg", song: "assets/2020.mp3", msg: "Make some noise! 📣", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD021": { name: "Sri Chirayu", img: "assets/photos/2021.jpg", song: "assets/2021.mp3", msg: "Welcome to the team! 🤝", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD022": { name: "Sree Amulya", img: "assets/photos/2022.jpg", song: "assets/2022.mp3", msg: "Stay awesome! 😎", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD023": { name: "Sushma", img: "assets/photos/2023.jpg", song: "assets/2023.mp3", msg: "Let's rock this! 🎸", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD024": { name: "Mouika", img: "assets/photos/2024.jpg", song: "assets/2024.mp3", msg: "Glad to have you! 💜", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD025": { name: "Kiran", img: "assets/photos/2025.jpg", song: "assets/2025.mp3", msg: "Welcome aboard! 🛳️", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD026": { name: "Tazmeen Fatima", img: "assets/photos/2026.jpg", song: "assets/2026.mp3", msg: "Party time! 🕰️", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD027": { name: "Sukanya Singh", img: "assets/photos/2027.jpg", song: "assets/2027.mp3", msg: "You look great! 👗", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD028": { name: "Sai Sanjana", img: "assets/photos/2028.jpg", song: "assets/2028.mp3", msg: "Welcome! 🤗", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD029": { name: "Hansika", img: "assets/photos/2029.jpg", song: "assets/2029.mp3", msg: "Best batch ever! 🏆", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD030": { name: "Shruthi", img: "assets/photos/2030.jpg", song: "assets/2030.mp3", msg: "Hello superstar! ⭐", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD031": { name: "Sahasranjali", img: "assets/photos/2031.jpg", song: "assets/2031.mp3", msg: "Vibe matches! ⚡", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
-        "PD032": { name: "Keerthi Chaithanya", img: "assets/photos/2032.jpg", song: "assets/2032.mp3", msg: "Last but best! 💎", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" }
+        "PD001": { name: "Jayani", img: "assets/photos/2001.jpg", song: "assets/2001.mp3", msg: "Welcome to the family! 🌟", seniorName: "Aditya (2nd Yr)", seniorImg: "assets/photos/aditya.jpg", seniorMsg: "Welcome to the batch! Feel free to ask me anything about 1st year." },
+        "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Bhavya (2nd Yr)", seniorImg: "assets/photos/bhavya.jpg", seniorMsg: "Hey twin! Don't stress about Pharmacology, I got notes for you. 😉" },
+        "PD003": { name: "Rajesh", img: "assets/photos/2003.jpg", song: "assets/2003.mp3", msg: "Future Dr. in the house! 💊", seniorName: "Chirag (2nd Yr)", seniorImg: "assets/photos/chirag.jpg", seniorMsg: "Welcome to the chaos! It's fun, promise. Let's meet at the party." },
+        "PD004": { name: "Chandrashekhar Roy", img: "assets/photos/2004.jpg", song: "assets/2004.mp3", msg: "Welcome to the chaos! ⚡", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD005": { name: "Charanya", img: "assets/photos/2005.jpg", song: "assets/2005.mp3", msg: "Shine bright tonight! ✨", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD006": { name: "Mahitha", img: "assets/photos/2006.jpg", song: "assets/2006.mp3", msg: "Official Vibe Check: Passed! ✅", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD007": { name: "Dwarakanath", img: "assets/photos/2007.jpg", song: "assets/2007.mp3", msg: "Let's make memories! 📸", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD008": { name: "Keerthi", img: "assets/photos/2008.jpg", song: "assets/2008.mp3", msg: "Welcome to the squad! 💜", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD009": { name: "Gayatri", img: "assets/photos/2009.jpg", song: "assets/2009.mp3", msg: "Sending good vibes! 🌸", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD010": { name: "Jatin", img: "assets/photos/2010.jpg", song: "assets/2010.mp3", msg: "Party mode: ON! 🚀", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD011": { name: "Vaishnavi", img: "assets/photos/2011.jpg", song: "assets/2011.mp3", msg: "So glad you're here! 💖", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD012": { name: "Akshaya", img: "assets/photos/2012.jpg", song: "assets/2012.mp3", msg: "Your journey starts now! 🗺️", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD013": { name: "Sai Poojitha", img: "assets/photos/2013.jpg", song: "assets/2013.mp3", msg: "Welcome to Esperanza! 🌌", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD014": { name: "Keerthana", img: "assets/photos/2014.jpg", song: "assets/2014.mp3", msg: "Keep smiling! 😊", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD015": { name: "Siri Chandana", img: "assets/photos/2015.jpg", song: "assets/2015.mp3", msg: "New favorite junior! 🌟", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD016": { name: "Harshini Prasanna", img: "assets/photos/2016.jpg", song: "assets/2016.mp3", msg: "Welcome home! 🏠", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD017": { name: "Fatima", img: "assets/photos/2017.jpg", song: "assets/2017.mp3", msg: "You radiate good energy! ⚡", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD018": { name: "Maseera Irram", img: "assets/photos/2018.jpg", song: "assets/2018.mp3", msg: "Enjoy the party! 🥂", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD019": { name: "Pallavi", img: "assets/photos/2019.jpg", song: "assets/2019.mp3", msg: "Welcome to PharmD! 💊", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD020": { name: "Akhila", img: "assets/photos/2020.jpg", song: "assets/2020.mp3", msg: "Make some noise! 📣", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD021": { name: "Sri Chirayu", img: "assets/photos/2021.jpg", song: "assets/2021.mp3", msg: "Welcome to the team! 🤝", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD022": { name: "Sree Amulya", img: "assets/photos/2022.jpg", song: "assets/2022.mp3", msg: "Stay awesome! 😎", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD023": { name: "Sushma", img: "assets/photos/2023.jpg", song: "assets/2023.mp3", msg: "Let's rock this! 🎸", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD024": { name: "Mouika", img: "assets/photos/2024.jpg", song: "assets/2024.mp3", msg: "Glad to have you! 💜", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD025": { name: "Kiran", img: "assets/photos/2025.jpg", song: "assets/2025.mp3", msg: "Welcome aboard! 🛳️", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD026": { name: "Tazmeen Fatima", img: "assets/photos/2026.jpg", song: "assets/2026.mp3", msg: "Party time! 🕰️", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD027": { name: "Sukanya Singh", img: "assets/photos/2027.jpg", song: "assets/2027.mp3", msg: "You look great! 👗", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD028": { name: "Sai Sanjana", img: "assets/photos/2028.jpg", song: "assets/2028.mp3", msg: "Welcome! 🤗", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD029": { name: "Hansika", img: "assets/photos/2029.jpg", song: "assets/2029.mp3", msg: "Best batch ever! 🏆", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD030": { name: "Shruthi", img: "assets/photos/2030.jpg", song: "assets/2030.mp3", msg: "Hello superstar! ⭐", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD031": { name: "Sahasranjali", img: "assets/photos/2031.jpg", song: "assets/2031.mp3", msg: "Vibe matches! ⚡", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." },
+        "PD032": { name: "Keerthi Chaithanya", img: "assets/photos/2032.jpg", song: "assets/2032.mp3", msg: "Last but best! 💎", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg", seniorMsg: "Senior message here." }
     };
 
     // --- 4. MODAL LOGIC ---
     function openPrincipal() { document.getElementById('principal-modal').style.display = 'flex'; }
     function closePrincipal() { document.getElementById('principal-modal').style.display = 'none'; }
-
     function openSecret() { document.getElementById('secret-modal').style.display = 'flex'; }
     function closeSecret() { 
         document.getElementById('secret-modal').style.display = 'none';
@@ -487,6 +513,8 @@
             // Senior Data
             document.getElementById('senior-name').innerText = data.seniorName;
             document.getElementById('senior-img').src = data.seniorImg;
+            // Senior Message (with quotes)
+            document.getElementById('senior-msg').innerText = '"' + data.seniorMsg + '"';
 
             const audio = document.getElementById('stu-song');
             audio.src = data.song;
@@ -498,22 +526,31 @@
         }
     }
 
-    // --- 5. ADVICE EASTER EGG ---
+    // --- 5. ADVICE EASTER EGG (Updated) ---
     function showAdvice() {
         const adviceList = [
-            "Pharmacology Tip: Don't memorize, visualize! 🧠",
-            "Canteen Samosas are life savers during labs. 🥟",
+            "Pharmaceutics Tip: Don't memorize, visualize! 🧠",
             "Be nice to the Lab Assistants. They know everything. 🤫",
             "Attendance matters. Trust us. 📉",
-            "Don't worry about the syllabus size, worry about the party tonight! 🎉",
             "Seniors are friends, not sharks. Talk to us! 🤝",
-            "White coats look cool, but they get dirty fast. carry a spare pen! 🖊️",
-            "PharmD is a marathon, not a sprint. Pace yourself. 🏃",
+            "White coats look cool, but they get dirty fast. 🥼",
             "The library is for sleeping... I mean studying. 😴",
-            "You will survive the exams. We did! 💪"
+            "You will survive the exams. We did! 💪",
+            "Carry a spare pen. Always. 🖊️"
         ];
+        
+        // Pick a random advice
         const randomAdvice = adviceList[Math.floor(Math.random() * adviceList.length)];
-        alert("💡 Senior Advice:\n\n" + randomAdvice);
+        
+        // Put it inside the custom box
+        document.getElementById('advice-text').innerText = '"' + randomAdvice + '"';
+        
+        // Show the box
+        document.getElementById('advice-modal').style.display = 'flex';
+    }
+
+    function closeAdvice() {
+        document.getElementById('advice-modal').style.display = 'none';
     }
 </script>
 
