@@ -17,6 +17,7 @@
             --border: rgba(255, 255, 255, 0.8);
             --primary: #9b72cf; 
             --accent: #ff6b6b;
+            --gold: #d4af37;
             --dark: #4a4a4a;
             --shadow: 0 10px 40px rgba(155, 114, 207, 0.15);
         }
@@ -35,14 +36,10 @@
             overscroll-behavior: none; 
         }
 
-        /* Hardware Accelerated Background (No shaking) */
+        /* Hardware Accelerated Background */
         .blob {
-            position: fixed;
-            filter: blur(60px); 
-            z-index: -1; 
-            opacity: 0.5;
-            will-change: transform;
-            transform: translateZ(0);
+            position: fixed; filter: blur(60px); z-index: -1; opacity: 0.5;
+            will-change: transform; transform: translateZ(0);
             animation: moveBlob 15s infinite alternate ease-in-out;
         }
         .blob-1 { top: -10%; left: -10%; width: 300px; height: 300px; background: #e0c3fc; border-radius: 50%; }
@@ -55,23 +52,17 @@
         }
 
         .app-container {
-            width: 100%; 
-            max-width: 480px;
-            padding: 20px; 
-            padding-bottom: 40px; 
-            position: relative; 
-            z-index: 2;
+            width: 100%; max-width: 480px;
+            padding: 20px; padding-bottom: 60px; 
+            position: relative; z-index: 2;
         }
 
-        /* --- HERO SECTION --- */
-        .hero { 
-            text-align: center; margin-top: 20px; margin-bottom: 25px; position: relative;
-        }
+        /* --- HERO --- */
+        .hero { text-align: center; margin-top: 20px; margin-bottom: 25px; position: relative; }
         
         .title-trigger {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 12vw, 5rem); 
-            color: var(--primary);
+            font-size: clamp(3.5rem, 12vw, 5rem); color: var(--primary);
             margin: 0; line-height: 1.1;
             text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
             cursor: pointer; transition: transform 0.2s; user-select: none;
@@ -87,8 +78,7 @@
             padding: 6px 14px; border-radius: 30px;
             font-size: 0.8rem; color: var(--primary); font-weight: 600;
             pointer-events: none; opacity: 0;
-            animation: floatHint 6s ease-in-out forwards;
-            animation-delay: 2s;
+            animation: floatHint 6s ease-in-out forwards; animation-delay: 2s;
             z-index: 1; white-space: nowrap;
         }
 
@@ -106,10 +96,8 @@
         /* --- COUNTDOWN --- */
         .countdown { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
         .time-box {
-            background: var(--glass-strong);
-            padding: 8px; border-radius: 12px; 
-            min-width: 55px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #fff;
+            background: var(--glass-strong); padding: 8px; border-radius: 12px; 
+            min-width: 55px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #fff;
         }
         .t-val { font-size: 1.2rem; font-weight: 800; color: var(--primary); display: block; }
         .t-label { font-size: 0.6rem; color: #999; text-transform: uppercase; }
@@ -124,12 +112,10 @@
             animation: slideUp 0.6s ease-out forwards;
             transform: translateZ(0);
         }
-
         .card.flashmob {
             border-left: 5px solid var(--accent);
             background: linear-gradient(to right, rgba(255, 107, 107, 0.05), rgba(255,255,255,0.8));
         }
-
         .section-title {
             font-family: 'Outfit', sans-serif; color: var(--primary);
             font-size: 1.1rem; font-weight: 800;
@@ -143,11 +129,9 @@
         .time-badge {
             background: var(--primary); color: white;
             font-size: 0.75rem; padding: 4px 10px; border-radius: 12px;
-            min-width: 75px; text-align: center; font-weight: 600;
-            flex-shrink: 0;
+            min-width: 75px; text-align: center; font-weight: 600; flex-shrink: 0;
         }
         .flashmob .time-badge { background: var(--accent); }
-        
         .event-info strong { display: block; font-size: 1rem; margin-bottom: 2px; line-height: 1.2; }
         .event-info span { font-size: 0.85rem; color: #666; }
 
@@ -162,34 +146,35 @@
         .btn:active { transform: scale(0.97); }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
 
-        /* --- FOOTER (Relative Position) --- */
+        /* --- FOOTER & BUTTONS --- */
         .footer-space {
-            margin-top: 40px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin-top: 30px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;
         }
+
+        .advice-btn {
+            background: white; border: 1px solid #eee;
+            padding: 8px 16px; border-radius: 30px;
+            font-size: 0.8rem; color: var(--primary); font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            cursor: pointer; transition: 0.2s;
+        }
+        .advice-btn:active { transform: scale(0.95); }
 
         .secret-btn {
             background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 50%;
             cursor: pointer; padding: 12px;
             box-shadow: 0 5px 20px rgba(155, 114, 207, 0.25);
             animation: floatBtn 3s ease-in-out infinite;
-            will-change: transform;
-            transition: transform 0.2s, background 0.3s;
         }
-
-        .secret-btn:active { transform: scale(0.9); }
         .secret-btn img { width: 32px; display: block; }
+        @keyframes floatBtn { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
 
-        @keyframes floatBtn {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* --- MODAL --- */
-        #secret-modal {
+        /* --- MODALS GENERAL --- */
+        .modal-overlay {
             display: none; position: fixed; inset: 0;
             background: rgba(255,255,255,0.98); 
             z-index: 1000; justify-content: center; align-items: center;
@@ -199,10 +184,28 @@
             background: white; width: 90%; max-width: 360px;
             padding: 30px 20px; border-radius: 25px; text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            position: relative;
-            max-height: 90dvh;
-            overflow-y: auto;
+            position: relative; max-height: 90dvh; overflow-y: auto;
         }
+
+        /* --- PRINCIPAL MODAL --- */
+        .principal-box { border: 2px solid #f3e5ab; background: linear-gradient(to bottom, #fff, #fffbf0); }
+        .gold-badge {
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            background: var(--gold); color: white;
+            padding: 5px 15px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
+            letter-spacing: 2px; box-shadow: 0 5px 10px rgba(212, 175, 55, 0.3);
+        }
+        .principal-frame {
+            width: 140px; height: 140px; margin: 10px auto;
+            border-radius: 50%; padding: 5px; border: 2px dashed var(--gold);
+        }
+        .principal-frame img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- SECRET MODAL STYLES --- */
         .code-input {
             width: 100%; padding: 14px; text-align: center; font-size: 1.3rem;
             border: 2px solid #eee; border-radius: 12px; margin: 15px 0;
@@ -210,54 +213,52 @@
             font-family: 'Outfit', sans-serif; -webkit-appearance: none;
         }
         .code-input:focus { border-color: var(--primary); }
-        
         #stu-msg { white-space: pre-line; line-height: 1.5; color: #555; font-size: 0.95rem; }
 
-        /* --- NEW PHOTO STYLES --- */
         .photo-wrapper {
-            position: relative;
-            width: 220px; /* Bigger */
-            height: 220px;
-            margin: 0 auto 15px auto;
+            position: relative; width: 220px; height: 220px; margin: 0 auto 15px auto;
         }
         .student-pic {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 24px; /* Rounded Square */
-            border: 4px solid white;
-            box-shadow: 0 10px 30px rgba(155, 114, 207, 0.3);
-            transform: rotate(-2deg);
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 24px; border: 4px solid white;
+            box-shadow: 0 10px 30px rgba(155, 114, 207, 0.3); transform: rotate(-2deg);
         }
         .sticker {
-            position: absolute;
-            top: -12px; right: -12px;
-            font-size: 2.2rem;
-            animation: pulse 2s infinite;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-            z-index: 2;
+            position: absolute; top: -12px; right: -12px; font-size: 2.2rem;
+            animation: pulse 2s infinite; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1)); z-index: 2;
         }
 
-        /* --- SENIOR CARD STYLES --- */
         .senior-card {
-            background: #f8f4fc;
-            border-radius: 16px;
-            padding: 12px;
-            margin-top: 20px;
-            display: flex; align-items: center; gap: 12px;
-            text-align: left;
-            border: 1px dashed var(--primary);
+            background: #fff; border-radius: 18px; padding: 15px; margin-top: 20px;
+            display: flex; align-items: center; gap: 15px; text-align: left;
+            border: 1px solid #e0c3fc; box-shadow: 0 5px 15px rgba(155, 114, 207, 0.1);
+            position: relative; overflow: hidden;
         }
+        .senior-card::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--primary);
+        }
+        .senior-img-wrapper { position: relative; width: 75px; height: 75px; flex-shrink: 0; }
         .senior-img {
-            width: 50px; height: 50px; border-radius: 50%;
-            object-fit: cover; border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%; height: 100%; border-radius: 18px; object-fit: cover;
+            border: 2px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .senior-badge {
+            position: absolute; bottom: -5px; right: -5px; background: var(--primary); color: white;
+            font-size: 0.55rem; padding: 2px 6px; border-radius: 8px; font-weight: bold; border: 1px solid white;
+        }
+        .senior-info { flex-grow: 1; }
+        .twin-label {
+            font-size: 0.65rem; color: #999; text-transform: uppercase; 
+            font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 2px;
+        }
+        .senior-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0; line-height: 1.2; }
+        .connect-btn {
+            font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 4px; display: inline-block;
+            background: rgba(155, 114, 207, 0.1); padding: 4px 10px; border-radius: 20px;
         }
 
         /* --- ANIMATIONS --- */
-        .emoji { 
-            position: fixed; top: -50px; font-size: 1.5rem; 
-            animation: fall linear forwards; z-index: 9999; pointer-events: none;
-        }
+        .emoji { position: fixed; top: -50px; font-size: 1.5rem; animation: fall linear forwards; z-index: 9999; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
@@ -274,10 +275,8 @@
 
     <div class="hero">
         <div class="ghost-hint">👉 <em>tap for magic</em> ✨</div>
-
         <h1 class="title-trigger" onclick="partyMode()">Esperanza</h1>
         <p>Class of 2026 Freshers</p>
-        
         <div class="countdown">
             <div class="time-box"><span id="d" class="t-val"></span><span class="t-label">Days</span></div>
             <div class="time-box"><span id="h" class="t-val"></span><span class="t-label">Hrs</span></div>
@@ -289,7 +288,6 @@
     <div class="card flashmob">
         <h3 class="section-title"><i class="fas fa-bolt"></i> The Prequel (Flashmob)</h3>
         <p style="font-size: 0.9rem; margin-bottom: 15px; line-height: 1.4;">Before the party begins, we make our mark.</p>
-        
         <div class="timeline-item">
             <div class="time-badge">Jan 2</div>
             <div class="event-info"><strong>Flashmob Performance</strong><span>Gathering at College Ground</span></div>
@@ -298,7 +296,6 @@
 
     <div class="card">
         <h3 class="section-title"><i class="fas fa-hourglass-half"></i> The Main Event (Jan 3)</h3>
-        
         <div class="timeline-item">
             <div class="time-badge">10:00 AM</div>
             <div class="event-info"><strong>Inauguration</strong><span>Lamp Lighting & Welcome</span></div>
@@ -315,10 +312,10 @@
             <div class="time-badge">02:30 PM</div>
             <div class="event-info"><strong>Cultural & DJ</strong><span>Dance floor opens!</span></div>
         </div>
-
-        <a href="https://goo.gl/maps/YOUR_REAL_LINK_HERE" target="_blank" class="btn btn-outline">
-            <i class="fas fa-map-marker-alt"></i>   Navigate to Venue
-        </a>
+        
+        <button onclick="openPrincipal()" class="btn btn-outline" style="border-color: #d4af37; color: #b4941f;">
+            <i class="fas fa-user-graduate"></i> &nbsp; Meet The Authority
+        </button>
     </div>
 
     <div class="card">
@@ -338,15 +335,34 @@
     </div>
 
     <div class="footer-space">
+        <button class="advice-btn" onclick="showAdvice()">💡 Need Senior Advice?</button>
+
         <div class="secret-btn" onclick="openSecret()">
             <img src="assets/images/heart.png" alt="Love">
         </div>
-        <div style="font-size: 0.8rem; color: #333; margin-top: 8px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Made with 💜 by PharmD 2nd Year</div>
+        <div style="font-size: 0.8rem; color: #333; margin-top: 5px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Made with 💜 by PharmD 2nd Year</div>
     </div>
 
 </div>
 
-<div id="secret-modal">
+<div id="principal-modal" class="modal-overlay">
+    <div class="modal-box principal-box">
+        <div class="gold-badge">Official</div>
+        <div class="principal-frame">
+            <img src="assets/photos/principal.jpg" alt="Principal">
+        </div>
+        <h2 style="font-family: 'Great Vibes'; color: #b4941f; margin: 10px 0 0 0;">The Principal</h2>
+        <h4 style="margin: 0; color: #555;">Dr. [Principal Name]</h4>
+        <div style="margin: 20px 0; font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.6;">
+            "To the Class of 2026,<br>
+            Welcome to the college. Education is important, but memories are eternal.<br>
+            <strong>Permission Granted to celebrate!</strong>"
+        </div>
+        <button class="btn" onclick="closePrincipal()" style="background: #d4af37; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);">Thank You!</button>
+    </div>
+</div>
+
+<div id="secret-modal" class="modal-overlay">
     <div class="modal-box">
         <h2 style="font-family: 'Great Vibes'; color: var(--primary); font-size: 2.5rem; margin:0;">Secret Access</h2>
         <p style="color: #999; font-size: 0.85rem;">Enter your code</p>
@@ -357,7 +373,6 @@
         <div style="margin-top: 15px; font-size: 0.8rem; color: #aaa; cursor: pointer; padding: 10px;" onclick="closeSecret()">Close</div>
 
         <div id="reveal-area" style="display: none; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px;">
-            
             <div class="photo-wrapper">
                 <div class="sticker">✨</div>
                 <img id="stu-img" class="student-pic" src="">
@@ -367,10 +382,14 @@
             <p id="stu-msg"></p>
 
             <div class="senior-card">
-                <img id="senior-img" class="senior-img" src="">
-                <div>
-                    <span style="font-size: 0.65rem; color: #888; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Your Senior Twin</span>
-                    <strong id="senior-name" style="display: block; color: var(--dark); font-size: 0.95rem; margin-top: 2px;"></strong>
+                <div class="senior-img-wrapper">
+                    <img id="senior-img" class="senior-img" src="">
+                    <div class="senior-badge">Senior</div>
+                </div>
+                <div class="senior-info">
+                    <span class="twin-label">Your Senior Twin</span>
+                    <h4 id="senior-name" class="senior-name"></h4>
+                    <span class="connect-btn">Let's Connect 💬</span>
                 </div>
             </div>
 
@@ -380,14 +399,12 @@
 </div>
 
 <script>
-    // --- 1. COUNTDOWN (Calculates IMMEDIATELY) ---
+    // --- 1. COUNTDOWN ---
     const partyDate = new Date("Jan 3, 2026 10:00:00").getTime();
-    
     function updateTimer() {
         const now = new Date().getTime();
         const dist = partyDate - now;
         if(dist < 0) return;
-        
         document.getElementById("d").innerText = Math.floor(dist / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
         document.getElementById("h").innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
         document.getElementById("m").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
@@ -411,8 +428,7 @@
         }
     }
 
-    // --- 3. DATABASE (Students + Senior Twins) ---
-    // NOTE: I added 'Senior Name' placeholders. You must edit them!
+    // --- 3. DATABASE (Edit Senior Names!) ---
     const database = {
         "PD001": { name: "Jayani", img: "assets/photos/2001.jpg", song: "assets/2001.mp3", msg: "Welcome to the family! 🌟", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
         "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" },
@@ -448,20 +464,27 @@
         "PD032": { name: "Keerthi Chaithanya", img: "assets/photos/2032.jpg", song: "assets/2032.mp3", msg: "Last but best! 💎", seniorName: "Senior Name", seniorImg: "assets/photos/senior_placeholder.jpg" }
     };
 
-    // --- 4. CHECK CODE FUNCTION ---
+    // --- 4. MODAL LOGIC ---
+    function openPrincipal() { document.getElementById('principal-modal').style.display = 'flex'; }
+    function closePrincipal() { document.getElementById('principal-modal').style.display = 'none'; }
+
+    function openSecret() { document.getElementById('secret-modal').style.display = 'flex'; }
+    function closeSecret() { 
+        document.getElementById('secret-modal').style.display = 'none';
+        document.getElementById('reveal-area').style.display = 'none';
+        document.getElementById('passcode').value = ''; 
+        const audio = document.getElementById('stu-song'); if(audio) { audio.pause(); audio.currentTime = 0; }
+    }
+
     function checkCode() {
         const code = document.getElementById('passcode').value.trim().toUpperCase();
         const data = database[code];
-        
         if (data) {
             document.getElementById('reveal-area').style.display = 'block';
-            
-            // Junior Info
             document.getElementById('stu-name').innerText = "Hey " + data.name + "!";
             document.getElementById('stu-msg').innerText = data.msg;
             document.getElementById('stu-img').src = data.img;
-
-            // Senior Info
+            // Senior Data
             document.getElementById('senior-name').innerText = data.seniorName;
             document.getElementById('senior-img').src = data.seniorImg;
 
@@ -474,17 +497,23 @@
             setTimeout(() => input.style.borderColor = '#eee', 500);
         }
     }
-    
-    function closeSecret() {
-        document.getElementById('secret-modal').style.display = 'none';
-        document.getElementById('reveal-area').style.display = 'none';
-        document.getElementById('passcode').value = ''; 
-        const audio = document.getElementById('stu-song');
-        if(audio) { audio.pause(); audio.currentTime = 0; }
-    }
-    
-    function openSecret() {
-        document.getElementById('secret-modal').style.display = 'flex';
+
+    // --- 5. ADVICE EASTER EGG ---
+    function showAdvice() {
+        const adviceList = [
+            "Pharmacology Tip: Don't memorize, visualize! 🧠",
+            "Canteen Samosas are life savers during labs. 🥟",
+            "Be nice to the Lab Assistants. They know everything. 🤫",
+            "Attendance matters. Trust us. 📉",
+            "Don't worry about the syllabus size, worry about the party tonight! 🎉",
+            "Seniors are friends, not sharks. Talk to us! 🤝",
+            "White coats look cool, but they get dirty fast. carry a spare pen! 🖊️",
+            "PharmD is a marathon, not a sprint. Pace yourself. 🏃",
+            "The library is for sleeping... I mean studying. 😴",
+            "You will survive the exams. We did! 💪"
+        ];
+        const randomAdvice = adviceList[Math.floor(Math.random() * adviceList.length)];
+        alert("💡 Senior Advice:\n\n" + randomAdvice);
     }
 </script>
 
