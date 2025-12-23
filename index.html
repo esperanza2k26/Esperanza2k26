@@ -352,23 +352,201 @@
             setTimeout(() => el.remove(), 4500);
         }
     }
-
-    // --- 3. DATABASE ---
-    const database = {
-        "PD001": { 
-            name: "Niharika", 
-            img: "assets/photos/rahul.jpg", 
-            song: "assets/niharika.mp3", 
-            msg: "We checked the guest list twice just to be sure... 📋\n\nAnd yep, you were at the top of the 'Must Invite' section. 🌟" 
-        },
-        "PD002": { 
-            name: "Priya", 
-            img: "assets/photos/priya.jpg", 
-            song: "assets/music/priya.mp3", 
-            msg: "You’re the missing element we were looking for. 🧩\n\nThe Periodic Table of 2026 is finally complete. 🧪" 
-        }
-        // ADD MORE STUDENTS HERE...
-    };
+// --- 3. DATABASE ---
+const database = {
+    "PD001": { 
+        name: "Jayani", 
+        img: "assets/photos/2001.jpg", 
+        song: "assets/2001.mp3", 
+        msg: "" 
+    },
+    "PD002": { 
+        name: "Niharika", 
+        img: "assets/photos/2002.jpg", 
+        song: "assets/2002.mp3", 
+        msg: "" 
+    },
+    "PD003": { 
+        name: "Rajesh", 
+        img: "assets/photos/2003.jpg", 
+        song: "assets/2003.mp3", 
+        msg: "" 
+    },
+    "PD004": { 
+        name: "Chandrashekhar Roy", 
+        img: "assets/photos/2004.jpg", 
+        song: "assets/2004.mp3", 
+        msg: "" 
+    },
+    "PD005": { 
+        name: "Charanya", 
+        img: "assets/photos/2005.jpg", 
+        song: "assets/2005.mp3", 
+        msg: "" 
+    },
+    "PD006": { 
+        name: "Mahitha", 
+        img: "assets/photos/2006.jpg", 
+        song: "assets/2006.mp3", 
+        msg: "" 
+    },
+    "PD007": { 
+        name: "Dwarakanath", 
+        img: "assets/photos/2007.jpg", 
+        song: "assets/2007.mp3", 
+        msg: "" 
+    },
+    "PD008": { 
+        name: "Keerthi", 
+        img: "assets/photos/2008.jpg", 
+        song: "assets/2008.mp3", 
+        msg: "" 
+    },
+    "PD009": { 
+        name: "Gayatri", 
+        img: "assets/photos/2009.jpg", 
+        song: "assets/2009.mp3", 
+        msg: "" 
+    },
+    "PD010": { 
+        name: "Jatin", 
+        img: "assets/photos/2010.jpg", 
+        song: "assets/2010.mp3", 
+        msg: "" 
+    },
+    "PD011": { 
+        name: "Vaishnavi", 
+        img: "assets/photos/2011.jpg", 
+        song: "assets/2011.mp3", 
+        msg: "" 
+    },
+    "PD012": { 
+        name: "Akshaya", 
+        img: "assets/photos/2012.jpg", 
+        song: "assets/2012.mp3", 
+        msg: "" 
+    },
+    "PD013": { 
+        name: "Sai Poojitha", 
+        img: "assets/photos/2013.jpg", 
+        song: "assets/2013.mp3", 
+        msg: "" 
+    },
+    "PD014": { 
+        name: "Keerthana", 
+        img: "assets/photos/2014.jpg", 
+        song: "assets/2014.mp3", 
+        msg: "" 
+    },
+    "PD015": { 
+        name: "Siri Chandana", 
+        img: "assets/photos/2015.jpg", 
+        song: "assets/2015.mp3", 
+        msg: "" 
+    },
+    "PD016": { 
+        name: "Harshini Prasanna", 
+        img: "assets/photos/2016.jpg", 
+        song: "assets/2016.mp3", 
+        msg: "" 
+    },
+    "PD017": { 
+        name: "Fatima", 
+        img: "assets/photos/2017.jpg", 
+        song: "assets/2017.mp3", 
+        msg: "" 
+    },
+    "PD018": { 
+        name: "Maseera Irram", 
+        img: "assets/photos/2018.jpg", 
+        song: "assets/2018.mp3", 
+        msg: "" 
+    },
+    "PD019": { 
+        name: "Pallavi", 
+        img: "assets/photos/2019.jpg", 
+        song: "assets/2019.mp3", 
+        msg: "" 
+    },
+    "PD020": { 
+        name: "Akhila", 
+        img: "assets/photos/2020.jpg", 
+        song: "assets/2020.mp3", 
+        msg: "" 
+    },
+    "PD021": { 
+        name: "Sri Chirayu", 
+        img: "assets/photos/2021.jpg", 
+        song: "assets/2021.mp3", 
+        msg: "" 
+    },
+    "PD022": { 
+        name: "Sree Amulya", 
+        img: "assets/photos/2022.jpg", 
+        song: "assets/2022.mp3", 
+        msg: "" 
+    },
+    "PD023": { 
+        name: "Sushma", 
+        img: "assets/photos/2023.jpg", 
+        song: "assets/2023.mp3", 
+        msg: "" 
+    },
+    "PD024": { 
+        name: "Mouika", 
+        img: "assets/photos/2024.jpg", 
+        song: "assets/2024.mp3", 
+        msg: "" 
+    },
+    "PD025": { 
+        name: "Kiran", 
+        img: "assets/photos/2025.jpg", 
+        song: "assets/2025.mp3", 
+        msg: "" 
+    },
+    "PD026": { 
+        name: "Tazmeen Fatima", 
+        img: "assets/photos/2026.jpg", 
+        song: "assets/2026.mp3", 
+        msg: "" 
+    },
+    "PD027": { 
+        name: "Sukanya Singh", 
+        img: "assets/photos/2027.jpg", 
+        song: "assets/2027.mp3", 
+        msg: "" 
+    },
+    "PD028": { 
+        name: "Sai Sanjana", 
+        img: "assets/photos/2028.jpg", 
+        song: "assets/2028.mp3", 
+        msg: "" 
+    },
+    "PD029": { 
+        name: "Hansika", 
+        img: "assets/photos/2029.jpg", 
+        song: "assets/2029.mp3", 
+        msg: "" 
+    },
+    "PD030": { 
+        name: "Shruthi", 
+        img: "assets/photos/2030.jpg", 
+        song: "assets/2030.mp3", 
+        msg: "" 
+    },
+    "PD031": { 
+        name: "Sahasranjali", 
+        img: "assets/photos/2031.jpg", 
+        song: "assets/2031.mp3", 
+        msg: "" 
+    },
+    "PD032": { 
+        name: "Keerthi Chaithanya", 
+        img: "assets/photos/2032.jpg", 
+        song: "assets/2032.mp3", 
+        msg: "" 
+    }
+};
 
     // --- 4. MODAL LOGIC ---
     function openSecret() {
