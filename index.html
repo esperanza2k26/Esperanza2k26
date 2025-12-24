@@ -60,6 +60,24 @@
         /* --- HERO --- */
         .hero { text-align: center; margin-top: 20px; margin-bottom: 25px; position: relative; }
         
+        /* NEW: Presenter Tag Style */
+        .presenter-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: block;
+            opacity: 0.8;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 0.8; transform: translateY(0); }
+        }
+
         .title-trigger {
             font-family: 'Great Vibes', cursive;
             font-size: clamp(3.5rem, 12vw, 5rem); color: var(--primary);
@@ -189,11 +207,11 @@
 
         /* --- PRINCIPAL MODAL --- */
         .principal-box { 
-    border: 2px solid #f3e5ab; 
-    background: linear-gradient(to bottom, #fff, #fffbf0);
-    overflow: visible !important; /* Stops cutting the badge */
-    margin-top: 20px; /* Moves box down so badge fits */
-}
+            border: 2px solid #f3e5ab; 
+            background: linear-gradient(to bottom, #fff, #fffbf0);
+            overflow: visible !important;
+            margin-top: 20px;
+        }
         .gold-badge {
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
             background: var(--gold); color: white;
@@ -236,7 +254,7 @@
         /* --- UPDATED SENIOR CARD --- */
         .senior-card {
             background: #fff; border-radius: 18px; padding: 15px; margin-top: 20px;
-            display: flex; align-items: flex-start; /* Changed for longer text */
+            display: flex; align-items: flex-start;
             gap: 15px; text-align: left;
             border: 1px solid #e0c3fc; box-shadow: 0 5px 15px rgba(155, 114, 207, 0.1);
             position: relative; overflow: hidden;
@@ -244,7 +262,7 @@
         .senior-card::before {
             content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--primary);
         }
-        .senior-img-wrapper { position: relative; width: 120px; height: 120px; flex-shrink: 0; /* BIGGER IMAGE */ }
+        .senior-img-wrapper { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
         .senior-img {
             width: 100%; height: 100%; border-radius: 20px; object-fit: cover;
             border: 2px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
@@ -289,6 +307,8 @@
 <div class="app-container">
 
     <div class="hero">
+        <span class="presenter-tag">Presented by PharmD 2nd Year 💊</span>
+        
         <div class="ghost-hint">👉 <em>tap for magic</em> ✨</div>
         <h1 class="title-trigger" onclick="partyMode()">Esperanza</h1>
         <p>Class of 2026 Freshers</p>
@@ -329,7 +349,7 @@
         </div>
         
         <button onclick="openPrincipal()" class="btn btn-outline" style="border-color: #d4af37; color: #b4941f;">
-            <i class="fas fa-user-graduate"></i>   Meet The Authority
+            <i class="fas fa-user-graduate"></i>  Meet The Authority
         </button>
     </div>
 
@@ -455,7 +475,7 @@
         }
     }
 
-    // --- 3. DATABASE (Update Senior Names & Messages!) ---
+    // --- 3. DATABASE ---
     const database = {
         "PD001": { name: "Jayani", img: "assets/photos/2001.jpg", song: "assets/2001.mp3", msg: "Welcome to the family! 🌟", seniorName: "Sai Chandhana", seniorImg: "assets/images/chandhana.jpg", seniorMsg: "Welcome to the batch! Feel free to ask me anything about 1st year." },
         "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Afsha Jabeen", seniorImg: "assets/images/afsha.jpg", seniorMsg: "Hey twin! Don't stress about Biochemistry, I got notes for you. 😉" },
@@ -510,10 +530,8 @@
             document.getElementById('stu-name').innerText = "Hey " + data.name + "!";
             document.getElementById('stu-msg').innerText = data.msg;
             document.getElementById('stu-img').src = data.img;
-            // Senior Data
             document.getElementById('senior-name').innerText = data.seniorName;
             document.getElementById('senior-img').src = data.seniorImg;
-            // Senior Message (with quotes)
             document.getElementById('senior-msg').innerText = '"' + data.seniorMsg + '"';
 
             const audio = document.getElementById('stu-song');
@@ -526,31 +544,19 @@
         }
     }
 
-    // --- 5. ADVICE EASTER EGG (Updated) ---
+    // --- 5. ADVICE EASTER EGG ---
     function showAdvice() {
         const adviceList = [
             "If the solution turns black, pour it out and pretend nothing happened. 🕵️‍♂️",
             "Be nice to the Lab Assistants. They know everything. 🤫",
             "Seniors are friends, not sharks. Talk to us! 🤝",
             "Organic Chemistry: Where 'C' stands for Crying. 😭",
-            "You will survive the exams. We did! 💪",
             "Viva Rule #1: Even if you're wrong, be wrong with confidence. 😎",
-            "Group study = 10% studying, 90% planning where to eat. 🍕",
             "Attendance matters. Trust us. 📉",
-            "Record work is heavy, but regret is heavier. Finish it daily! 📓",
-            "Seniors are friends, not sharks. Talk to us! 🤝",
-            "White coats look cool, but they get dirty fast. 🥼",
-            "The library is for sleeping... I mean studying. 😴",
             "Carry a spare pen. Always. 🖊️"
         ];
-        
-        // Pick a random advice
         const randomAdvice = adviceList[Math.floor(Math.random() * adviceList.length)];
-        
-        // Put it inside the custom box
         document.getElementById('advice-text').innerText = '"' + randomAdvice + '"';
-        
-        // Show the box
         document.getElementById('advice-modal').style.display = 'flex';
     }
 
