@@ -60,22 +60,22 @@
         /* --- HERO --- */
         .hero { text-align: center; margin-top: 20px; margin-bottom: 25px; position: relative; }
         
-        /* NEW: Presenter Tag Style */
+        /* Updated Presenter Tag Style for bottom placement */
         .presenter-tag {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             color: var(--primary);
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-top: 10px;
             display: block;
-            opacity: 0.8;
-            animation: fadeInDown 1s ease-out;
+            opacity: 0.7;
+            animation: fadeInUp 1.2s ease-out forwards;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 0.8; transform: translateY(0); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 0.7; transform: translateY(0); }
         }
 
         .title-trigger {
@@ -108,11 +108,11 @@
         
         .hero p {
             text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
-            color: #888; margin-top: 5px; font-weight: 700;
+            color: #888; margin-top: 5px; font-weight: 700; margin-bottom: 0;
         }
 
         /* --- COUNTDOWN --- */
-        .countdown { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+        .countdown { display: flex; justify-content: center; gap: 8px; margin-top: 25px; }
         .time-box {
             background: var(--glass-strong); padding: 8px; border-radius: 12px; 
             min-width: 55px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #fff;
@@ -278,7 +278,6 @@
         }
         .senior-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin: 0; line-height: 1.2; margin-bottom: 5px; }
         
-        /* New Senior Message Style */
         .senior-message {
             font-size: 0.85rem; color: #666; font-style: italic; line-height: 1.4;
             background: #fcfaff; padding: 8px; border-radius: 8px; margin-bottom: 5px;
@@ -307,11 +306,12 @@
 <div class="app-container">
 
     <div class="hero">
-        <span class="presenter-tag">Presented by PharmD 2nd Year 💊</span>
-        
         <div class="ghost-hint">👉 <em>tap for magic</em> ✨</div>
         <h1 class="title-trigger" onclick="partyMode()">Esperanza</h1>
         <p>Class of 2026 Freshers</p>
+        
+        <span class="presenter-tag">Presented by PharmD 2nd Year 💊</span>
+
         <div class="countdown">
             <div class="time-box"><span id="d" class="t-val"></span><span class="t-label">Days</span></div>
             <div class="time-box"><span id="h" class="t-val"></span><span class="t-label">Hrs</span></div>
@@ -446,7 +446,6 @@
 </div>
     
 <script>
-    // --- 1. COUNTDOWN ---
     const partyDate = new Date("Jan 3, 2026 10:00:00").getTime();
     function updateTimer() {
         const now = new Date().getTime();
@@ -460,7 +459,6 @@
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    // --- 2. PARTY MODE ANIMATION ---
     function partyMode() {
         const emojis = ['💜', '🤍', '💖', '💗', '💊', '✨', '🦋', '🌸', '💃', '🕺', '🪩', '🌙', '💫', '🔮', '🧿'];
         for (let i = 0; i < 25; i++) {
@@ -475,7 +473,6 @@
         }
     }
 
-    // --- 3. DATABASE ---
     const database = {
         "PD001": { name: "Jayani", img: "assets/photos/2001.jpg", song: "assets/2001.mp3", msg: "Welcome to the family! 🌟", seniorName: "Sai Chandhana", seniorImg: "assets/images/chandhana.jpg", seniorMsg: "Welcome to the batch! Feel free to ask me anything about 1st year." },
         "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Afsha Jabeen", seniorImg: "assets/images/afsha.jpg", seniorMsg: "Hey twin! Don't stress about Biochemistry, I got notes for you. 😉" },
@@ -511,7 +508,6 @@
         "PD032": { name: "Keerthi Chaithanya", img: "assets/photos/2032.jpg", song: "assets/2032.mp3", msg: "Last but best! 💎", seniorName: "Rahul", seniorImg: "assets/images/rahul.jpg", seniorMsg: "Senior message here." }
     };
 
-    // --- 4. MODAL LOGIC ---
     function openPrincipal() { document.getElementById('principal-modal').style.display = 'flex'; }
     function closePrincipal() { document.getElementById('principal-modal').style.display = 'none'; }
     function openSecret() { document.getElementById('secret-modal').style.display = 'flex'; }
@@ -533,7 +529,6 @@
             document.getElementById('senior-name').innerText = data.seniorName;
             document.getElementById('senior-img').src = data.seniorImg;
             document.getElementById('senior-msg').innerText = '"' + data.seniorMsg + '"';
-
             const audio = document.getElementById('stu-song');
             audio.src = data.song;
             audio.play().catch(e => console.log("Click play manually"));
@@ -544,7 +539,6 @@
         }
     }
 
-    // --- 5. ADVICE EASTER EGG ---
     function showAdvice() {
         const adviceList = [
             "If the solution turns black, pour it out and pretend nothing happened. 🕵️‍♂️",
@@ -559,10 +553,7 @@
         document.getElementById('advice-text').innerText = '"' + randomAdvice + '"';
         document.getElementById('advice-modal').style.display = 'flex';
     }
-
-    function closeAdvice() {
-        document.getElementById('advice-modal').style.display = 'none';
-    }
+    function closeAdvice() { document.getElementById('advice-modal').style.display = 'none'; }
 </script>
 
 </body>
