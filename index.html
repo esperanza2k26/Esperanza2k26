@@ -60,9 +60,8 @@
         /* --- HERO --- */
         .hero { text-align: center; margin-top: 20px; margin-bottom: 25px; position: relative; }
         
-        /* Updated Presenter Tag Style for bottom placement */
         .presenter-tag {
-            font-size: 0.9rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2.5px;
             color: var(--primary);
@@ -196,34 +195,39 @@
             display: none; position: fixed; inset: 0;
             background: rgba(255,255,255,0.98); 
             z-index: 1000; justify-content: center; align-items: center;
-            overflow-y: auto;
         }
         .modal-box {
-            background: white; width: 90%; max-width: 360px;
+            background: white; width: 92%; max-width: 400px;
             padding: 30px 20px; border-radius: 25px; text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            position: relative; max-height: 90dvh; overflow-y: auto;
+            position: relative; max-height: 85dvh; overflow-y: auto;
+            scroll-behavior: smooth;
         }
 
-        /* --- PRINCIPAL MODAL --- */
-        .principal-box { 
+        /* --- AUTHORITY SEGMENTS (Scrollable) --- */
+        .authority-segment { 
             border: 2px solid #f3e5ab; 
             background: linear-gradient(to bottom, #fff, #fffbf0);
-            overflow: visible !important;
-            margin-top: 20px;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
+        .authority-segment:last-of-type { margin-bottom: 10px; }
+
         .gold-badge {
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
             background: var(--gold); color: white;
             padding: 5px 15px; border-radius: 20px;
-            font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
+            font-size: 0.6rem; font-weight: bold; text-transform: uppercase;
             letter-spacing: 2px; box-shadow: 0 5px 10px rgba(212, 175, 55, 0.3);
+            z-index: 5;
         }
-        .principal-frame {
-            width: 140px; height: 140px; margin: 10px auto;
+        .authority-frame {
+            width: 120px; height: 120px; margin: 10px auto;
             border-radius: 50%; padding: 5px; border: 2px dashed var(--gold);
         }
-        .principal-frame img {
+        .authority-frame img {
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
             border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
@@ -309,8 +313,7 @@
         <div class="ghost-hint">👉 <em>tap for magic</em> ✨</div>
         <h1 class="title-trigger" onclick="partyMode()">Esperanza</h1>
         <p>Class of 2026 Freshers</p>
-        
-        <span class="presenter-tag">Presented by PharmD 2nd Year 💜</span>
+        <span class="presenter-tag">Presented by II Yr students, MRCP 💊</span>
 
         <div class="countdown">
             <div class="time-box"><span id="d" class="t-val"></span><span class="t-label">Days</span></div>
@@ -373,7 +376,7 @@
         <button class="advice-btn" onclick="showAdvice()">💡 Need Senior Advice? (don't tap again)</button>
 
         <div class="secret-btn" onclick="openSecret()">
-            <img src="assets/images/heart.png" alt="Love">
+            <img src="assets/images/heart.png" alt="Love" loading="lazy">
         </div>
         <div style="font-size: 0.8rem; color: #333; margin-top: 5px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Made with 💜 by PharmD 2nd Year</div>
     </div>
@@ -381,19 +384,44 @@
 </div>
 
 <div id="principal-modal" class="modal-overlay">
-    <div class="modal-box principal-box">
-        <div class="gold-badge">Official</div>
-        <div class="principal-frame">
-            <img src="assets/principal.jpg" alt="Principal">
+    <div class="modal-box">
+        
+        <h2 style="font-family: 'Great Vibes'; color: var(--primary); font-size: 2.2rem; margin-bottom: 20px;">The Leadership</h2>
+
+        <div class="authority-segment">
+            <div class="gold-badge">Principal</div>
+            <div class="authority-frame">
+                <img src="assets/principal.jpg" alt="Principal" loading="lazy">
+            </div>
+            <h3 style="margin: 10px 0 0 0; color: #b4941f; font-size: 1.1rem;">Dr. M. Sudhakar</h3>
+            <div style="margin: 15px 0; font-style: italic; color: #666; font-size: 0.85rem; line-height: 1.5;">
+                "To the Class of 2026, welcome to this new chapter! Enjoy every step of the way! Permission Granted to celebrate!"
+            </div>
         </div>
-        <h2 style="font-family: 'Great Vibes'; color: #b4941f; margin: 10px 0 0 0;">The Principal</h2>
-        <h4 style="margin: 0; color: #555;">Dr. M. Sudhakar</h4>
-        <div style="margin: 20px 0; font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.6;">
-            "To the Class of 2026,<br>
-            "Welcome to this new chapter! Education will guide you, but the memories, growth, and experiences you have here will stay with you forever. Enjoy every step of the way!"<br>
-            <strong>Permission Granted to celebrate!</strong>"
+
+        <div class="authority-segment">
+            <div class="gold-badge">H.O.D</div>
+            <div class="authority-frame">
+                <img src="assets/hod.jpg" alt="HOD" loading="lazy">
+            </div>
+            <h3 style="margin: 10px 0 0 0; color: #b4941f; font-size: 1.1rem;">HOD Name Here</h3>
+            <div style="margin: 15px 0; font-style: italic; color: #666; font-size: 0.85rem; line-height: 1.5;">
+                "Message from the HOD to the freshers class of 2026. Put your inspiring words here!"
+            </div>
         </div>
-        <button class="btn" onclick="closePrincipal()" style="background: #d4af37; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);">Thank You!</button>
+
+        <div class="authority-segment">
+            <div class="gold-badge">Faculty</div>
+            <div class="authority-frame">
+                <img src="assets/sir.jpg" alt="Faculty" loading="lazy">
+            </div>
+            <h3 style="margin: 10px 0 0 0; color: #b4941f; font-size: 1.1rem;">Sir Name Here</h3>
+            <div style="margin: 15px 0; font-style: italic; color: #666; font-size: 0.85rem; line-height: 1.5;">
+                "A specialized message for the students. You can edit this part to say whatever you like."
+            </div>
+        </div>
+
+        <button class="btn" onclick="closePrincipal()" style="background: var(--primary); margin-top: 10px;">Close Hall of Fame</button>
     </div>
 </div>
 
@@ -401,24 +429,19 @@
     <div class="modal-box">
         <h2 style="font-family: 'Great Vibes'; color: var(--primary); font-size: 2.5rem; margin:0;">Secret access</h2>
         <p style="color: #999; font-size: 0.85rem;">Enter your code</p>
-        
-        <input type="text" id="passcode" class="code-input" placeholder="000" autocomplete="off">
-        
+        <input type="text" id="passcode" class="code-input" placeholder="PD000" autocomplete="off">
         <button class="btn" onclick="checkCode()">Unlock</button>
         <div style="margin-top: 15px; font-size: 0.8rem; color: #aaa; cursor: pointer; padding: 10px;" onclick="closeSecret()">Close</div>
-
         <div id="reveal-area" style="display: none; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px;">
             <div class="photo-wrapper">
                 <div class="sticker">✨</div>
-                <img id="stu-img" class="student-pic" src="">
+                <img id="stu-img" class="student-pic" src="" loading="lazy">
             </div>
-
             <h3 id="stu-name" style="color: var(--primary); margin: 10px 0; font-size: 1.5rem;"></h3>
             <p id="stu-msg"></p>
-
             <div class="senior-card">
                 <div class="senior-img-wrapper">
-                    <img id="senior-img" class="senior-img" src="">
+                    <img id="senior-img" class="senior-img" src="" loading="lazy">
                     <div class="senior-badge">Senior</div>
                 </div>
                 <div class="senior-info">
@@ -428,7 +451,6 @@
                     <span class="connect-btn">Let's Connect 💬</span>
                 </div>
             </div>
-
             <audio id="stu-song" controls style="width: 100%; margin-top: 15px; border-radius: 20px;"></audio>
         </div>
     </div>
@@ -438,9 +460,7 @@
     <div class="modal-box">
         <div style="font-size: 3rem; margin-bottom: 10px;">💡</div>
         <h3 style="color: var(--primary); margin: 0; font-family: 'Great Vibes'; font-size: 2rem;">Senior wisdom</h3>
-        
         <p id="advice-text" style="font-size: 1.1rem; color: #555; font-style: italic; margin: 20px 0; line-height: 1.5;"></p>
-        
         <button class="btn" onclick="closeAdvice()">Got it!</button>
     </div>
 </div>
@@ -475,8 +495,8 @@
 
     const database = {
         "PD001": { name: "Jayani", img: "assets/photos/2001.jpg", song: "assets/2001.mp3", msg: "Welcome to the family! 🌟", seniorName: "Sai Chandhana", seniorImg: "assets/images/chandhana.jpg", seniorMsg: "Welcome to the batch! Feel free to ask me anything about 1st year." },
-        "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Afsha Jabeen", seniorImg: "assets/images/afsha.jpg", seniorMsg: "Don't just chase marks, Collect skills like Pokemon" },
-        "PD003": { name: "Rajesh", img: "assets/photos/2003.jpg", song: "assets/2003.mp3", msg: "Future Dr. in the house! 💊", seniorName: "Amena Begum", seniorImg: "assets/images/amena.jpg", seniorMsg: "Stay curious, stay humble, and keep moving forward." },
+        "PD002": { name: "Niharika", img: "assets/photos/2002.jpg", song: "assets/niharika.mp3", msg: "You’re the missing element! 🧪", seniorName: "Afsha Jabeen", seniorImg: "assets/images/afsha.jpg", seniorMsg: "Hey twin! Don't stress about Biochemistry, I got notes for you. 😉" },
+        "PD003": { name: "Rajesh", img: "assets/photos/2003.jpg", song: "assets/2003.mp3", msg: "Future Dr. in the house! 💊", seniorName: "Amena Begum", seniorImg: "assets/images/amena.jpg", seniorMsg: "Welcome to the chaos! It's fun, promise. Let's meet at the party." },
         "PD004": { name: "Chandrashekhar Roy", img: "assets/photos/2004.jpg", song: "assets/2004.mp3", msg: "Welcome to the chaos! ⚡", seniorName: "B. Kavya", seniorImg: "assets/images/kavya.jpg", seniorMsg: "Senior message here." },
         "PD005": { name: "Charanya", img: "assets/photos/2005.jpg", song: "assets/2005.mp3", msg: "Shine bright tonight! ✨", seniorName: "B. Priscilla", seniorImg: "assets/images/priscilla.jpg", seniorMsg: "Senior message here." },
         "PD006": { name: "Mahitha", img: "assets/photos/2006.jpg", song: "assets/2006.mp3", msg: "Official Vibe Check: Passed! ✅", seniorName: "B. Jyoshna", seniorImg: "assets/images/jyoshna.jpg", seniorMsg: "Senior message here." },
@@ -484,25 +504,25 @@
         "PD008": { name: "Keerthi", img: "assets/photos/2008.jpg", song: "assets/2008.mp3", msg: "Welcome to the squad! 💜", seniorName: "D. Ritesh", seniorImg: "assets/images/ritesh.jpg", seniorMsg: "Senior message here." },
         "PD009": { name: "Gayatri", img: "assets/photos/2009.jpg", song: "assets/2009.mp3", msg: "Sending good vibes! 🌸", seniorName: "Sree Sushumna (CR- II Yr)", seniorImg: "assets/images/sushumna.jpg", seniorMsg: "Senior message here." },
         "PD010": { name: "Jatin", img: "assets/photos/2010.jpg", song: "assets/2010.mp3", msg: "Party mode: ON! 🚀", seniorName: "E. Amulya", seniorImg: "assets/images/amulya.jpg", seniorMsg: "Senior message here." },
-        "PD011": { name: "Vaishnavi", img: "assets/photos/2011.jpg", song: "assets/2011.mp3", msg: "So glad you're here! 💖", seniorName: "J. Srinivas", seniorImg: "assets/images/srinivas.jpg", seniorMsg: "This party is made just for you, so enjoy without limits Create memories and cherish the moment—it won’t come again." },
-        "PD012": { name: "Akshaya", img: "assets/photos/2012.jpg", song: "assets/2012.mp3", msg: "Your journey starts now! 🗺️", seniorName: "K. Kavya", seniorImg: "assets/images/kavya2.jpg", seniorMsg: "Medicine is tough, but so are you 💪🩺" },
+        "PD011": { name: "Vaishnavi", img: "assets/photos/2011.jpg", song: "assets/2011.mp3", msg: "So glad you're here! 💖", seniorName: "J. Srinivas", seniorImg: "assets/images/srinivas.jpg", seniorMsg: "Senior message here." },
+        "PD012": { name: "Akshaya", img: "assets/photos/2012.jpg", song: "assets/2012.mp3", msg: "Your journey starts now! 🗺️", seniorName: "K. Kavya", seniorImg: "assets/images/kavya2.jpg", seniorMsg: "Senior message here." },
         "PD013": { name: "Sai Poojitha", img: "assets/photos/2013.jpg", song: "assets/2013.mp3", msg: "Welcome to Esperanza! 🌌", seniorName: "K. Divyanjali", seniorImg: "assets/images/divya.jpg", seniorMsg: "Senior message here." },
         "PD014": { name: "Keerthana", img: "assets/photos/2014.jpg", song: "assets/2014.mp3", msg: "Keep smiling! 😊", seniorName: "K. Sahana", seniorImg: "assets/images/sahana.jpg", seniorMsg: "Senior message here." },
-        "PD015": { name: "Siri Chandana", img: "assets/photos/2015.jpg", song: "assets/2015.mp3", msg: "New favorite junior! 🌟", seniorName: "Lisa Panigrahi", seniorImg: "assets/images/lisa.jpg", seniorMsg: "You are allowed to be both a masterpiece and a work in progress, simultaneously." },
+        "PD015": { name: "Siri Chandana", img: "assets/photos/2015.jpg", song: "assets/2015.mp3", msg: "New favorite junior! 🌟", seniorName: "Lisa Panigrahi", seniorImg: "assets/images/lisa.jpg", seniorMsg: "Senior message here." },
         "PD016": { name: "Harshini Prasanna", img: "assets/photos/2016.jpg", song: "assets/2016.mp3", msg: "Welcome home! 🏠", seniorName: "M. Sai Kumar", seniorImg: "assets/images/saikumar.jpg", seniorMsg: "Senior message here." },
         "PD017": { name: "Fatima", img: "assets/photos/2017.jpg", song: "assets/2017.mp3", msg: "You radiate good energy! ⚡", seniorName: "M. Sakshitha", seniorImg: "assets/images/sakshitha.jpg", seniorMsg: "Senior message here." },
         "PD018": { name: "Maseera Irram", img: "assets/photos/2018.jpg", song: "assets/2018.mp3", msg: "Enjoy the party! 🥂", seniorName: "M. Siri Varma", seniorImg: "assets/images/siri.jpg", seniorMsg: "Senior message here." },
-        "PD019": { name: "Pallavi", img: "assets/photos/2019.jpg", song: "assets/2019.mp3", msg: "Welcome to PharmD! 💊", seniorName: "Ruqya Unnisa", seniorImg: "assets/images/ruqya.jpg", seniorMsg: "Dream big, stay focused, and never stop learning." },
-        "PD020": { name: "Akhila", img: "assets/photos/2020.jpg", song: "assets/2020.mp3", msg: "Make some noise! 📣", seniorName: "N. Srukesh Roshan (CR- II Yr)", seniorImg: "assets/images/roshan.jpg", seniorMsg: "Dr Prefix for PharmD students Romba rombaaa Kastam Broo 🥲🥵" },
-        "PD021": { name: "Sri Chirayu", img: "assets/photos/2021.jpg", song: "assets/2021.mp3", msg: "Welcome to the team! 🤝", seniorName: "Iftiaar Taslim", seniorImg: "assets/images/taslim.jpg", seniorMsg: "What we think, we become" },
-        "PD022": { name: "Sree Amulya", img: "assets/photos/2022.jpg", song: "assets/2022.mp3", msg: "Stay awesome! 😎", seniorName: "P. Kalpana", seniorImg: "assets/images/kalpana.jpg", seniorMsg: "Focus on patient safety, clinical knowledge, and ethical practice. Your role as a pharmacist is not just dispensing drugs-it's saving lives." },
+        "PD019": { name: "Pallavi", img: "assets/photos/2019.jpg", song: "assets/2019.mp3", msg: "Welcome to PharmD! 💊", seniorName: "Ruqya Unnisa", seniorImg: "assets/images/ruqya.jpg", seniorMsg: "Senior message here." },
+        "PD020": { name: "Akhila", img: "assets/photos/2020.jpg", song: "assets/2020.mp3", msg: "Make some noise! 📣", seniorName: "N. Srukesh Roshan (CR- II Yr)", seniorImg: "assets/images/nsr.jpg", seniorMsg: "Senior message here." },
+        "PD021": { name: "Sri Chirayu", img: "assets/photos/2021.jpg", song: "assets/2021.mp3", msg: "Welcome to the team! 🤝", seniorName: "Iftiaar Taslim", seniorImg: "assets/images/taslim.jpg", seniorMsg: "Senior message here." },
+        "PD022": { name: "Sree Amulya", img: "assets/photos/2022.jpg", song: "assets/2022.mp3", msg: "Stay awesome! 😎", seniorName: "P. Kalpana", seniorImg: "assets/images/kalpana.jpg", seniorMsg: "Senior message here." },
         "PD023": { name: "Sushma", img: "assets/photos/2023.jpg", song: "assets/2023.mp3", msg: "Let's rock this! 🎸", seniorName: "Chandra Sidhard Rao", seniorImg: "assets/images/sidhu.jpg", seniorMsg: "Senior message here." },
         "PD024": { name: "Mouika", img: "assets/photos/2024.jpg", song: "assets/2024.mp3", msg: "Glad to have you! 💜", seniorName: "R. Mounika", seniorImg: "assets/images/mounika.jpg", seniorMsg: "Senior message here." },
-        "PD025": { name: "Kiran", img: "assets/photos/2025.jpg", song: "assets/2025.mp3", msg: "Welcome aboard! 🛳️", seniorName: "S. Likhitha", seniorImg: "assets/images/likhitha.webp", seniorMsg: "Never let your self respect die." },
-        "PD026": { name: "Tazmeen Fatima", img: "assets/photos/2026.jpg", song: "assets/2026.mp3", msg: "Party time! 🕰️", seniorName: "A. Sharanya", seniorImg: "assets/images/sharanya.jpg", seniorMsg: "Tomorrow never comes 😭" },
+        "PD025": { name: "Kiran", img: "assets/photos/2025.jpg", song: "assets/2025.mp3", msg: "Welcome aboard! 🛳️", seniorName: "S. Likhitha", seniorImg: "assets/images/likhitha.jpg", seniorMsg: "Senior message here." },
+        "PD026": { name: "Tazmeen Fatima", img: "assets/photos/2026.jpg", song: "assets/2026.mp3", msg: "Party time! 🕰️", seniorName: "A. Sharanya", seniorImg: "assets/images/sharanya.jpg", seniorMsg: "Senior message here." },
         "PD027": { name: "Sukanya Singh", img: "assets/photos/2027.jpg", song: "assets/2027.mp3", msg: "You look great! 👗", seniorName: "S. Abhinaya", seniorImg: "assets/images/abhinaya.jpg", seniorMsg: "Senior message here." },
-        "PD028": { name: "Sai Sanjan", img: "assets/photos/2028.jpg", song: "assets/2028.mp3", msg: "Welcome! 🤗", seniorName: "T. Kavya", seniorImg: "assets/images/tkavya.jpg", seniorMsg: "Balance academics with practical skills; both are equally important in pharmacy." },
-        "PD029": { name: "Hansika", img: "assets/photos/2029.jpg", song: "assets/2029.mp3", msg: "Best batch ever! 🏆", seniorName: "Sudiksha Tiwari", seniorImg: "assets/images/sudiksha.jpg", seniorMsg: "Don't just wait for future; cherish today, for today make the memories you'll miss tomorrow." },
+        "PD028": { name: "Sai Sanjan", img: "assets/photos/2028.jpg", song: "assets/2028.mp3", msg: "Welcome! 🤗", seniorName: "T. Kavya", seniorImg: "assets/images/tkavya.jpg", seniorMsg: "Senior message here." },
+        "PD029": { name: "Hansika", img: "assets/photos/2029.jpg", song: "assets/2029.mp3", msg: "Best batch ever! 🏆", seniorName: "Sudiksha Tiwari", seniorImg: "assets/images/sudiksha.jpg", seniorMsg: "Senior message here." },
         "PD030": { name: "Shruthi", img: "assets/photos/2030.jpg", song: "assets/2030.mp3", msg: "Hello superstar! ⭐", seniorName: "Mahavi", seniorImg: "assets/images/mahavi.jpg", seniorMsg: "Senior message here." },
         "PD031": { name: "Sahasranjali", img: "assets/photos/2031.jpg", song: "assets/2031.mp3", msg: "Vibe matches! ⚡", seniorName: "Chandu", seniorImg: "assets/images/chandu.jpg", seniorMsg: "Senior message here." },
         "PD032": { name: "Keerthi Chaithanya", img: "assets/photos/2032.jpg", song: "assets/2032.mp3", msg: "Last but best! 💎", seniorName: "Rahul", seniorImg: "assets/images/rahul.jpg", seniorMsg: "Senior message here." }
