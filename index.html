@@ -527,6 +527,17 @@
         "PD031": { name: "Sahasranjali", img: "assets/photos/2031.jpg", song: "assets/2031.mp3", msg: "Vibe matches! ⚡", seniorName: "Chandu", seniorImg: "assets/images/srinivas.jpg", seniorMsg: "Hi 😊You’re officially invited to the fresher’s party! Just come, enjoy, and have a great time 🎉🙌" },
         "PD032": { name: "Keerthi Chaithanya", img: "assets/photos/2032.jpg", song: "assets/2032.mp3", msg: "Last but the best! 💎", seniorName: "Rahul", seniorImg: "assets/images/srinivas.jpg", seniorMsg: "It’s going to be an awesome evening filled with fun, music, games, and a chance to meet new people and get to know your seniors and classmates. 🥳" }
     };
+function preloadImages() {
+    Object.values(database).forEach(d => {
+        const img1 = new Image();
+        img1.src = d.img;
+
+        const img2 = new Image();
+        img2.src = d.seniorImg;
+    });
+}
+
+window.addEventListener('load', preloadImages);
 
     function openPrincipal() { document.getElementById('principal-modal').style.display = 'flex'; }
     function closePrincipal() { document.getElementById('principal-modal').style.display = 'none'; }
